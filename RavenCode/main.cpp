@@ -162,6 +162,10 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
            break;
 
+		 case 'T':
+			 g_pRaven->createTeam();
+			 break;
+
 
          case VK_UP:
 

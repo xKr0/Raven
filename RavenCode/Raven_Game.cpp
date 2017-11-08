@@ -252,6 +252,13 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
     //not be rendered until it is spawned)
     Raven_Bot* rb = new Raven_Bot(this, Vector2D());
 
+	// if there is the team management On
+	if (isTeamOn) {
+		// we check in which team we have to add the bot
+		if (Team::nbBlue >= Team::nbRed) rb->setTeam(Team::red);
+		else rb->setTeam(Team::blue);
+	}
+
     //switch the default steering behaviors on
     rb->GetSteering()->WallAvoidanceOn();
     rb->GetSteering()->SeparationOn();
