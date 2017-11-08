@@ -3,7 +3,6 @@
 #include "Raven_SensoryMemory.h"
 
 
-
 //-------------------------------- ctor ---------------------------------------
 //-----------------------------------------------------------------------------
 Raven_TargetingSystem::Raven_TargetingSystem(Raven_Bot* owner):m_pOwner(owner),
@@ -28,7 +27,9 @@ void Raven_TargetingSystem::Update()
   for (curBot; curBot != SensedBots.end(); ++curBot)
   {
     //make sure the bot is alive and that it is not the owner
-    if ((*curBot)->isAlive() && (*curBot != m_pOwner) )
+	  // also make sure the bot is not targeting an ally
+    if ((*curBot)->isAlive() && (*curBot != m_pOwner) && 
+		(m_pOwner->getTag() == Team::none || (*curBot)->getTag() != m_pOwner->getTag()))
     {
       double dist = Vec2DDistanceSq((*curBot)->Pos(), m_pOwner->Pos());
 
