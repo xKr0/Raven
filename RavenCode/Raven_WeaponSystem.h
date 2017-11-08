@@ -63,7 +63,10 @@ private:
   void        AddNoiseToAim(Vector2D& AimingPos)const;
 
   // add "logique flou" to the aim
-  double GetAccuracy(double TimeOpponentStayVisible, double DistToOpponent, double BotVelocitySpeed, double BotVelocityDirection);
+  double GetAccuracy(double TimeOpponentStayVisible, double DistToOpponent/*, double BotVelocitySpeed*/, double BotVelocityDirection);
+
+  // work on fuzzy stuff
+  void InitializeFuzzyModule();
 
   //fuzzy logic is used to determine the Accurancy.
   FuzzyModule   m_FuzzyModule;
