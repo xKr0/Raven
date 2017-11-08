@@ -242,10 +242,102 @@ void Raven_WeaponSystem::AddNoiseToAim(Vector2D& AimingPos)const
 {
   Vector2D toPos = AimingPos - m_pOwner->Pos();
 
+  // Time elapsed with opponent visible, distance with him and velocity
+  double TimeOpponentStayVisible = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible();
+  double DistToOpponent = Vec2DDistance(m_pOwner->Pos(), m_pOwner->GetTargetBot()->Pos());
+  double BotVelocitySpeed = m_pOwner->Velocity().Length();
+  double BotVelocityDirection = (m_pOwner->GetTargetBot()->Pos() - m_pOwner->Pos()).Dot(m_pOwner->Velocity());
+
+  // Modify the Aim
+  m_pOwner->GetWeaponSys()->m_dAimAccuracy = m_pOwner->GetWeaponSys()->GetAccuracy(TimeOpponentStayVisible, DistToOpponent, BotVelocitySpeed, BotVelocityDirection);
+
   Vec2DRotateAroundOrigin(toPos, RandInRange(-m_dAimAccuracy, m_dAimAccuracy));
 
   AimingPos = toPos + m_pOwner->Pos();
 }
+
+////**************************************
+////**************************************
+////**************************************
+////**************************************
+////**************************************
+////**************************************
+////**************************************
+
+//---------------------------- Accuracy -----------------------------------
+//
+//-------------------------------------------------------------------------
+double Raven_WeaponSystem::GetAccuracy(double TimeOpponentStayVisible, double DistToOpponent, double BotVelocitySpeed, double BotVelocityDirection)
+{
+	/*if (m_iNumRoundsLeft == 0)
+	{
+		m_dLastDesirabilityScore = 0;
+	}
+	else
+	{*/
+
+		//fuzzify distance 
+
+		m_FuzzyModule.Fuzzify("DistanceToTarget", DistToOpponent);
+		/*m_FuzzyModule.Fuzzify("DistanceToTarget", DistToTarget);
+		m_FuzzyModule.Fuzzify("DistanceToTarget", DistToTarget);
+		m_FuzzyModule.Fuzzify("DistanceToTarget", DistToTarget);*/
+
+		m_dLastAccuracyScore = m_FuzzyModule.DeFuzzify("Accuracy", FuzzyModule::max_av);
+
+	/*}*/
+
+	return m_dLastAccuracyScore;
+}
+
+//----------------------- InitializeFuzzyModule -------------------------------
+//
+//  set up some fuzzy variables and rules
+//-----------------------------------------------------------------------------
+void RailGun::InitializeFuzzyModule()
+{
+
+	FuzzyVariable& DistanceToTarget = m_FuzzyModule.CreateFLV("DistanceToTarget");
+
+	FzSet& Target_Close = DistanceToTarget.AddLeftShoulderSet("Target_Close", 0, 25, 150);
+	FzSet& Target_Medium = DistanceToTarget.AddTriangularSet("Target_Medium", 25, 150, 300);
+	FzSet& Target_Far = DistanceToTarget.AddRightShoulderSet("Target_Far", 150, 300, 1000);
+
+	FuzzyVariable& Desirability = m_FuzzyModule.CreateFLV("Accuracy");
+
+	FzSet& VeryDesirable = Desirability.AddRightShoulderSet("VeryDesirable", 50, 75, 100);
+	FzSet& Desirable = Desirability.AddTriangularSet("Desirable", 25, 50, 75);
+	FzSet& Undesirable = Desirability.AddLeftShoulderSet("Undesirable", 0, 25, 50);
+
+	FuzzyVariable& AmmoStatus = m_FuzzyModule.CreateFLV("AmmoStatus");
+	FzSet& Ammo_Loads = AmmoStatus.AddRightShoulderSet("Ammo_Loads", 15, 30, 100);
+	FzSet& Ammo_Okay = AmmoStatus.AddTriangularSet("Ammo_Okay", 0, 15, 30);
+	FzSet& Ammo_Low = AmmoStatus.AddTriangularSet("Ammo_Low", 0, 0, 15);
+
+
+
+	m_FuzzyModule.AddRule(FzAND(Target_Close, Ammo_Loads), FzFairly(Desirable));
+	m_FuzzyModule.AddRule(FzAND(Target_Close, Ammo_Okay), FzFairly(Desirable));
+	m_FuzzyModule.AddRule(FzAND(Target_Close, Ammo_Low), Undesirable);
+
+	m_FuzzyModule.AddRule(FzAND(Target_Medium, Ammo_Loads), VeryDesirable);
+	m_FuzzyModule.AddRule(FzAND(Target_Medium, Ammo_Okay), Desirable);
+	m_FuzzyModule.AddRule(FzAND(Target_Medium, Ammo_Low), Desirable);
+
+	m_FuzzyModule.AddRule(FzAND(Target_Far, Ammo_Loads), FzVery(VeryDesirable));
+	m_FuzzyModule.AddRule(FzAND(Target_Far, Ammo_Okay), FzVery(VeryDesirable));
+	m_FuzzyModule.AddRule(FzAND(Target_Far, FzFairly(Ammo_Low)), VeryDesirable);
+}
+
+
+////**************************************
+////**************************************
+////**************************************
+////**************************************
+////**************************************
+////**************************************
+////**************************************
+
 
 //-------------------------- PredictFuturePositionOfTarget --------------------
 //
