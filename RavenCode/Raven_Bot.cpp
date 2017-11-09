@@ -343,6 +343,10 @@ void Raven_Bot::ReduceHealth(unsigned int val)
   if (m_iHealth <= 0)
   {
     SetDead();
+
+	// get the points to the opposite team if team on
+	if (m_team == Team::blue) { Team::increasedRedScore(); }
+	else if (m_team == Team::red) { Team::increasedBlueScore(); }
   }
 
   m_bHit = true;
@@ -356,12 +360,9 @@ void Raven_Bot::ReduceHealth(unsigned int val)
 //-----------------------------------------------------------------------------
 void Raven_Bot::TakePossession()
 {
-  if ( !(isSpawning() || isDead()))
-  {
     m_bPossessed = true;
 
     debug_con << "Player Possesses bot " << this->ID() << "";
-  }
 }
 //------------------------------- Exorcise ------------------------------------
 //

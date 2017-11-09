@@ -26,10 +26,12 @@
 #include "goals/Goal_Think.h"
 #include "goals/Raven_Goal_Types.h"
 
-
+// to print team new bot msg
+#include "debug/DebugConsole.h"
 
 //uncomment to write object creation/deletion to debug console
-//#define  LOG_CREATIONAL_STUFF
+#define  LOG_CREATIONAL_STUFF
+#include "debug/DebugConsole.h"
 
 
 //----------------------------- ctor ------------------------------------------
@@ -255,8 +257,14 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 	// if there is the team management On
 	if (isTeamOn) {
 		// we check in which team we have to add the bot
-		if (Team::nbBlue >= Team::nbRed) rb->setTeam(Team::red);
-		else rb->setTeam(Team::blue);
+		if (Team::nbBlue >= Team::nbRed) { 
+			rb->setTeam(Team::red); 
+			debug_con << "New player for Team Red : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";
+		}
+		else {
+			rb->setTeam(Team::blue);
+			debug_con << "New player for Team Blue : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";
+		}
 	}
 
     //switch the default steering behaviors on
@@ -273,6 +281,28 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
   debug_con << "Adding bot with ID " << ttos(rb->ID()) << "";
 #endif
   }
+}
+
+//-------------------------- AddBots --------------------------------------
+//
+//  Adds a bot and switches on the default steering behavior
+//-----------------------------------------------------------------------------
+void Raven_Game::AddPlayer()
+{
+		//create a bot. (its position is irrelevant at this point because it will
+		//not be rendered until it is spawned)
+		Raven_Bot* rb = new Raven_Bot(this, Vector2D());
+		rb->TakePossession();
+		rb->GetBrain()->RemoveAllSubgoals();
+		//switch the default steering behaviors on
+		m_pSelectedBot = rb;
+		rb->GetSteering()->WallAvoidanceOn();
+		rb->GetSteering()->SeparationOn();
+
+		m_Bots.push_back(rb);
+		//register the bot with the entity manager
+		EntityMgr->RegisterEntity(rb);
+
 }
 
 //---------------------------- NotifyAllBotsOfRemoval -------------------------
@@ -404,6 +434,7 @@ bool Raven_Game::LoadMap(const std::string& filename)
   if (m_pMap->LoadMap(filename))
   { 
     AddBots(script->GetInt("NumBots"));
+	AddPlayer();
   
     return true;
   }
@@ -439,8 +470,11 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
   //if there is no selected bot just return;
   if (!pBot && m_pSelectedBot == NULL) return;
 
+  
+
   //if the cursor is over a different bot to the existing selection,
   //change selection
+  /*
   if (pBot && pBot != m_pSelectedBot)
   { 
     if (m_pSelectedBot) m_pSelectedBot->Exorcise();
@@ -457,7 +491,7 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
 
     //clear any current goals
     m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
-  }
+  }*/
 
   //if the bot is possessed then a right click moves the bot to the cursor
   //position
@@ -485,8 +519,15 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 {
   if (m_pSelectedBot && m_pSelectedBot->isPossessed())
   {
+	  if (IS_KEY_PRESSED('A'))
+	  {
+		  debug_con << "testttt" << "";
+		  m_pSelectedBot->ChangeWeapon(type_rocket_launcher);
+		  debug_con << "testttt" << "";
+	  }
     m_pSelectedBot->FireWeapon(POINTStoVector(p));
   }
+  
 }
 
 //------------------------ GetPlayerInput -------------------------------------
@@ -698,6 +739,14 @@ void Raven_Game::Render()
   //render the map
   m_pMap->Render();
 
+  /*
+  gdi->BluePen(); gdi->HollowBrush();
+  gdi->Circle(Team::spotBlue, Team::spotRadius);
+
+  gdi->RedPen(); gdi->HollowBrush();
+  gdi->Circle(Team::spotRed, Team::spotRadius);
+  */
+
   //render all the bots unless the user has selected the option to only 
   //render those bots that are in the fov of the selected bot
   if (m_pSelectedBot && UserOptions->m_bOnlyShowBotsInTargetsFOV)
@@ -733,12 +782,12 @@ void Raven_Game::Render()
 
  // gdi->TextAtPos(300, WindowHeight - 70, "Num Current Searches: " + ttos(m_pPathManager->GetNumActiveSearches()));
 
-  //render a red circle around the selected bot (blue if possessed)
+  //render a red circle around the selected bot (green if possessed)
   if (m_pSelectedBot)
   {
     if (m_pSelectedBot->isPossessed())
     {
-      gdi->BluePen(); gdi->HollowBrush();
+      gdi->DarkGreenPen(); gdi->HollowBrush();
       gdi->Circle(m_pSelectedBot->Pos(), m_pSelectedBot->BRadius()+1);
     }
     else
