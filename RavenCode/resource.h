@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
-// Used by Script1.rc
+// fichier Include Microsoft Visual C++.
+// Utilisé par Script1.rc
 //
 #define IDR_MENU1                       101
 #define ID_MENU_LOAD                    40001
@@ -23,13 +23,16 @@
 #define IDM_NAVIGATION_SMOOTH_PATHS_PRECISE 40015
 #define IDM_BOTS_SHOW_SENSED            40016
 #define IDM_GAME_PAUSE                  40017
+#define ID_GAME_CREATETEAM              40018
+#define ID_GAME_CREATE_TEAM             40020
+#define IDM_BOTS_SHOW_TEAM              40023
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        111
-#define _APS_NEXT_COMMAND_VALUE         40018
+#define _APS_NEXT_COMMAND_VALUE         40024
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
