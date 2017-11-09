@@ -25,13 +25,13 @@
 #include "game/EntityFunctionTemplates.h"
 #include "Raven_Bot.h"
 #include "navigation/pathmanager.h"
+#include "Team.h"
 
 
 class BaseGameEntity;
 class Raven_Projectile;
 class Raven_Map;
 class GraveMarkers;
-
 
 
 class Raven_Game
@@ -80,6 +80,9 @@ private:
   //must be notified so that they can remove any references to that bot from
   //their memory
   void NotifyAllBotsOfRemoval(Raven_Bot* pRemovedBot)const;
+
+  // true if there is team On
+  bool isTeamOn = false;
   
 public:
   
@@ -163,7 +166,21 @@ public:
 
   
   void  TagRaven_BotsWithinViewRange(BaseGameEntity* pRaven_Bot, double range)
-              {TagNeighbors(pRaven_Bot, m_Bots, range);}  
+              {TagNeighbors(pRaven_Bot, m_Bots, range);} 
+
+  void createTeam() {
+	  if (isTeamOn) {
+		  Team::destroyTeam(m_Bots);
+
+		// we turn off the bool
+		  isTeamOn = false;
+	  }
+	  else {
+		  Team::createTeam(m_Bots);
+		  // we turn the bool to true
+		  isTeamOn = true;
+	  }
+  }
 };
 
 

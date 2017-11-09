@@ -297,3 +297,6 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+# Ignore the Debuglog from the console
+RavenCode/DebugLog.txt

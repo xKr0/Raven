@@ -26,6 +26,8 @@
 #include "goals/Goal_Think.h"
 #include "goals/Raven_Goal_Types.h"
 
+// to print team new bot msg
+#include "debug/DebugConsole.h"
 
 //uncomment to write object creation/deletion to debug console
 #define  LOG_CREATIONAL_STUFF
@@ -251,6 +253,19 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
     //create a bot. (its position is irrelevant at this point because it will
     //not be rendered until it is spawned)
     Raven_Bot* rb = new Raven_Bot(this, Vector2D());
+
+	// if there is the team management On
+	if (isTeamOn) {
+		// we check in which team we have to add the bot
+		if (Team::nbBlue >= Team::nbRed) { 
+			rb->setTeam(Team::red); 
+			debug_con << "New player for Team Red : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";
+		}
+		else {
+			rb->setTeam(Team::blue);
+			debug_con << "New player for Team Blue : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";
+		}
+	}
 
     //switch the default steering behaviors on
     rb->GetSteering()->WallAvoidanceOn();
@@ -729,6 +744,14 @@ void Raven_Game::Render()
   //render the map
   m_pMap->Render();
 
+  /*
+  gdi->BluePen(); gdi->HollowBrush();
+  gdi->Circle(Team::spotBlue, Team::spotRadius);
+
+  gdi->RedPen(); gdi->HollowBrush();
+  gdi->Circle(Team::spotRed, Team::spotRadius);
+  */
+
   //render all the bots unless the user has selected the option to only 
   //render those bots that are in the fov of the selected bot
   if (m_pSelectedBot && UserOptions->m_bOnlyShowBotsInTargetsFOV)
@@ -764,12 +787,12 @@ void Raven_Game::Render()
 
  // gdi->TextAtPos(300, WindowHeight - 70, "Num Current Searches: " + ttos(m_pPathManager->GetNumActiveSearches()));
 
-  //render a red circle around the selected bot (blue if possessed)
+  //render a red circle around the selected bot (green if possessed)
   if (m_pSelectedBot)
   {
     if (m_pSelectedBot->isPossessed())
     {
-      gdi->BluePen(); gdi->HollowBrush();
+      gdi->DarkGreenPen(); gdi->HollowBrush();
       gdi->Circle(m_pSelectedBot->Pos(), m_pSelectedBot->BRadius()+1);
     }
     else

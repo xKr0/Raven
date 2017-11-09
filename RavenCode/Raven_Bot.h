@@ -16,6 +16,7 @@
 #include "game/MovingEntity.h"
 #include "misc/utils.h"
 #include "Raven_TargetingSystem.h"
+#include "Team.h"
 
 
 class Raven_PathPlanner;
@@ -28,9 +29,6 @@ class Raven_Bot;
 class Goal_Think;
 class Raven_WeaponSystem;
 class Raven_SensoryMemory;
-
-
-
 
 class Raven_Bot : public MovingEntity
 {
@@ -122,6 +120,9 @@ private:
   //initializes the bot's VB with its geometry
   void          SetUpVertexBuffer();
 
+  // teamTag
+  Team::teamTag m_team;
+
 
 public:
   
@@ -174,6 +175,16 @@ public:
   void          ChangeWeapon(unsigned int type);
   void          TakePossession();
   void          Exorcise();
+
+  // teamManagement
+  void setTeam(Team::teamTag tag) {
+	  m_team = tag;
+
+	  if (tag == Team::red) Team::nbRed++;
+	  else Team::nbBlue++;
+  };
+
+  Team::teamTag getTag() { return m_team; };
 
   //spawns the bot at the given position
   void          Spawn(Vector2D pos);

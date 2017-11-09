@@ -46,6 +46,7 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
                  m_iScore(0),
                  m_Status(spawning),
                  m_bPossessed(false),
+				 m_team(Team::none),
                  m_dFieldOfView(DegsToRads(script->GetDouble("Bot_FOV")))
            
 {
@@ -89,6 +90,12 @@ Raven_Bot::~Raven_Bot()
 {
   debug_con << "deleting raven bot (id = " << ID() << ")" << "";
   
+  // decrease the nb in the team
+  if (m_team == Team::red) Team::nbRed--;
+  else if (m_team == Team::blue) {
+	  Team::nbBlue--;
+  }
+
   delete m_pBrain;
   delete m_pPathPlanner;
   delete m_pSteering;
@@ -336,6 +343,10 @@ void Raven_Bot::ReduceHealth(unsigned int val)
   if (m_iHealth <= 0)
   {
     SetDead();
+
+	// get the points to the opposite team if team on
+	if (m_team == Team::blue) { Team::increasedRedScore(); }
+	else if (m_team == Team::red) { Team::increasedBlueScore(); }
   }
 
   m_bHit = true;
@@ -482,8 +493,18 @@ void Raven_Bot::Render()
 
 
   if (isDead() || isSpawning()) return;
+
+  if (m_team == Team::blue) {
+	  gdi->BluePen();
+  }
+  else if (m_team == Team::red) {
+	  gdi->RedPen();
+  }
+  else {
+	  gdi->BlackPen();
+  }
   
-  gdi->BluePen();
+ 
   
   m_vecBotVBTrans = WorldTransform(m_vecBotVB,
                                    Pos(),
