@@ -481,11 +481,11 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
     m_pSelectedBot = pBot;
 
     return;
-  }*/
+  }
 
   //if the user clicks on a selected bot twice it becomes possessed(under
   //the player's control)
-  /*if (pBot && pBot == m_pSelectedBot)
+  if (pBot && pBot == m_pSelectedBot)
   {
     m_pSelectedBot->TakePossession();
 
@@ -550,11 +550,6 @@ void Raven_Game::GetPlayerInput()const
 //-----------------------------------------------------------------------------
 void Raven_Game::ChangeWeaponOfPossessedBot(unsigned int weapon)const
 {
-	if (IS_KEY_PRESSED('a'))
-	{
-		m_pSelectedBot->ChangeWeapon(type_rocket_launcher);
-		debug_con << "testttt" << "";
-	}
   //ensure one of the bots has been possessed
   if (m_pSelectedBot)
   {

@@ -126,7 +126,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
           
           break;
 
-         case 'P':
+		 case 'M':
 
            g_pRaven->TogglePause();
 
@@ -163,7 +163,9 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
            break;
 
 		 case 'T':
+
 			 g_pRaven->createTeam();
+
 			 break;
 
 
