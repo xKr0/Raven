@@ -163,6 +163,20 @@ void Raven_Map::AddWeapon_Giver(int type_of_weapon, std::ifstream& in)
   EntityMgr->RegisterEntity(wg);
 }
 
+void Raven_Map::AddTeamWeaponCache(Trigger_TeamWeaponCache* wc) {
+	//add it to the appropriate vectors
+	m_TriggerSystem.Register(wc);
+
+	//let the corresponding navgraph node point to this object
+	NavGraph::NodeType& node = m_pNavGraph->GetNode(wc->GraphNodeIndex());
+
+	node.SetExtraInfo(wc);
+
+	//register the entity 
+	EntityMgr->RegisterEntity(wc);
+
+}
+
 
 //------------------------- LoadMap ------------------------------------
 //

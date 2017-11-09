@@ -12,6 +12,7 @@
 //
 //-----------------------------------------------------------------------------
 #include <map>
+#include <list>
 #include "2d/vector2d.h"
 #include "Fuzzy/FuzzyModule.h"
 
@@ -95,6 +96,8 @@ public:
   //this method determines the most appropriate weapon to use given the current
   //game state. (Called every n update-steps from Raven_Bot::Update)
   void          SelectWeapon();
+
+  std::list<Raven_Weapon*> GetInventory();
   
   //this will add a weapon of the specified type to the bot's inventory. 
   //If the bot already has a weapon of this type only the ammo is added. 

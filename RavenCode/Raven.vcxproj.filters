@@ -271,6 +271,9 @@
     <ClCompile Include="Team.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Trigger_TeamWeaponCache.cpp">
+      <Filter>AI\Triggers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -611,6 +614,9 @@
     </ClInclude>
     <ClInclude Include="Team.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Trigger_TeamWeaponCache.h">
+      <Filter>AI\Triggers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

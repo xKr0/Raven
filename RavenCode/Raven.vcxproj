@@ -536,6 +536,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="Trigger_TeamWeaponCache.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h" />
@@ -651,6 +652,7 @@
     <ClInclude Include="..\Common\2D\Wall2D.h" />
     <ClInclude Include="..\Common\2D\WallIntersectionTests.h" />
     <ClInclude Include="..\Common\misc\WindowUtils.h" />
+    <ClInclude Include="Trigger_TeamWeaponCache.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua" />

@@ -24,10 +24,10 @@
 #include "Graph/GraphNodeTypes.h"
 #include "misc/CellSpacePartition.h"
 #include "triggers/TriggerSystem.h"
+#include "Trigger_TeamWeaponCache.h"
 
 class BaseGameEntity;
 class Raven_Door;
-
 
 class Raven_Map
 {
@@ -107,6 +107,8 @@ public:
 
   //returns the position of a graph node selected at random
   Vector2D GetRandomNodeLocation()const;
+
+  void AddTeamWeaponCache(Trigger_TeamWeaponCache* wc);
   
   
   void  UpdateTriggerSystem(std::list<Raven_Bot*>& bots);
