@@ -53,6 +53,9 @@ public:
   bool m_bShowBotHealth;
 
   bool m_bShowScore;
+
+  // added for team tag
+  bool m_bShowTeam;
 };
 
 

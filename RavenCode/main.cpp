@@ -89,7 +89,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
 			  
          //select the bitmap into the memory device context
-			   hOldBitmap = (HBITMAP)SelectObject(hdcBackBuffer, hBitmap);
+		 hOldBitmap = (HBITMAP)SelectObject(hdcBackBuffer, hBitmap);
 
          //don't forget to release the DC
          ReleaseDC(hwnd, hdc);  
@@ -210,6 +210,20 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
      switch(wParam)
       {
       
+	 case ID_GAME_CREATE_TEAM:
+
+		 g_pRaven->createTeam();
+		 CheckMenuItemAppropriately(hwnd, ID_GAME_CREATE_TEAM, g_pRaven->isTeamActive());
+
+		 break;
+
+	 case IDM_BOTS_SHOW_TEAM:
+
+		 UserOptions->m_bShowTeam = !UserOptions->m_bShowTeam;
+
+		 CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_TEAM, UserOptions->m_bShowTeam);
+
+		 break;
 
       case IDM_GAME_LOAD:
           

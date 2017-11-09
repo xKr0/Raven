@@ -96,6 +96,11 @@ public:
   void Render();
   void Update();
 
+  //get the team status
+  bool isTeamActive() {
+	  return isTeamOn;
+  }
+
   //loads an environment from a file
   bool LoadMap(const std::string& FileName); 
 
