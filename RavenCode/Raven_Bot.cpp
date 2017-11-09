@@ -559,7 +559,23 @@ void Raven_Bot::Render()
   if (UserOptions->m_bShowScore)
   {
     gdi->TextAtPos(Pos().x-40, Pos().y+10, "Scr:"+ ttos(Score()));
-  }    
+  }
+
+  //to display team tag on bots
+  if (UserOptions->m_bShowTeam)
+  {
+	  if (m_team == Team::red) {
+		gdi->TextColor(gdi->red);
+		gdi->TextAtPos(Pos().x - 40, Pos().y - 20, "RED");
+	  }
+	  else if (m_team == Team::blue) {
+		 gdi->TextColor(gdi->blue);
+		 gdi->TextAtPos(Pos().x - 40, Pos().y - 20, "BLUE");
+	  }
+	  else {
+		 gdi->TextAtPos(Pos().x - 40, Pos().y - 20, "none");
+	  }  
+  }
 }
 
 //------------------------- SetUpVertexBuffer ---------------------------------

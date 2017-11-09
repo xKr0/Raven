@@ -349,7 +349,7 @@ void Raven_WeaponSystem::InitializeFuzzyModule()
 
 	FzSet& ShortPeriod = TimeStayVisible.AddLeftShoulderSet("ShortPeriod", 0, 0.5, 1);
 	FzSet& MediumPeriod = TimeStayVisible.AddTriangularSet("MediumPeriod", 0.5, 1.25, 2);
-	FzSet& LongPeriod = TimeStayVisible.AddRightShoulderSet("LongPeriod", 1.25, 2, 10000000000000000); // infiny
+	FzSet& LongPeriod = TimeStayVisible.AddRightShoulderSet("LongPeriod", 1.25, 2, 3600); // infiny
 
 	/*FuzzyVariable& VelocitySpeed = m_FuzzyModule.CreateFLV("VelocitySpeed");
 
@@ -361,8 +361,8 @@ void Raven_WeaponSystem::InitializeFuzzyModule()
 
 	FzSet& InFrontMoveForward = VelocityDirection.AddLeftShoulderSet("InFrontMoveForward", 0, 0.2, 0.3);
 	FzSet& InFrontMoveBack = VelocityDirection.AddRightShoulderSet("InFrontMoveBack", -0.3, -0.2, 0);
-	FzSet& TranslationSideForward = VelocityDirection.AddRightShoulderSet("TranslationSideForward", 0.2, 0.5, 1);
-	FzSet& TranslationSideBack = VelocityDirection.AddLeftShoulderSet("TranslationSideBack", -1, -0.5, -0.2);
+	FzSet& TranslationSideForward = VelocityDirection.AddRightShoulderSet("TranslationSideForward", 0.2, 0.5, 1.2);
+	FzSet& TranslationSideBack = VelocityDirection.AddLeftShoulderSet("TranslationSideBack", -1.2, -0.5, -0.2);
 
 
 
