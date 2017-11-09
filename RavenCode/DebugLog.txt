@@ -73,27 +73,7 @@ Creating a shotgun
 Creating a shotgun
 Creating a rocket_launcher
 maps/Raven_DM1.map loaded okay
-Teams creation is complete : 2 Red vs 1 Blue
-New player for Team Blue : 2 Red vs 2 Blue
-New player for Team Red : 3 Red vs 2 Blue
-New player for Team Blue : 3 Red vs 3 Blue
-New player for Team Red : 4 Red vs 3 Blue
-New player for Team Blue : 4 Red vs 4 Blue
-New player for Team Red : 5 Red vs 4 Blue
-New player for Team Blue : 5 Red vs 5 Blue
-New player for Team Red : 6 Red vs 5 Blue
-New player for Team Blue : 6 Red vs 6 Blue
-Team Blue scores ! Red : 0pts vs Blue : 5pts
-BOT 455 IS STUCK!!
-deleting raven bot (id = 401)
-deleting raven bot (id = 402)
-deleting raven bot (id = 403)
-deleting raven bot (id = 439)
-deleting raven bot (id = 442)
-deleting raven bot (id = 443)
-deleting raven bot (id = 455)
-deleting raven bot (id = 456)
-deleting raven bot (id = 459)
-deleting raven bot (id = 460)
-deleting raven bot (id = 461)
-deleting raven bot (id = 462)
+Teams creation is complete : 6 Red vs 4 Blue
+Teams have been destroyed!
+BOT 416 IS STUCK!!
+BOT 419 IS STUCK!!
