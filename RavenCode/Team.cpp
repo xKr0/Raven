@@ -63,9 +63,22 @@ void Team::destroyTeam(std::list<Raven_Bot*> mBots)
 		(*curBot)->setTeam(none);
 	}
 
-	// reset team counter 
+	// display score results in debug console
+	if (Team::scoreBlue == Team::scoreRed) {
+		debug_con << "Match tie ! Red : " << Team::scoreRed << "pts vs Blue : " << Team::scoreBlue << "pts" << "";
+	}
+	else if (Team::scoreBlue > Team::scoreRed) {
+		debug_con << "Blue wins ! Red : " << Team::scoreRed << "pts vs Blue : " << Team::scoreBlue << "pts" << "";
+	}
+	else {
+		debug_con << "Red wins ! Red : " << Team::scoreRed << "pts vs Blue : " << Team::scoreBlue << "pts" << "";
+	}
+	
+	// reset team counters and scores 
 	nbBlue = 0;
 	nbRed = 0;
+	scoreBlue = 0;
+	scoreRed = 0;
 
 	debug_con << "Teams have been destroyed!" << "";
 }
