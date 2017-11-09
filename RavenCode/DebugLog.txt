@@ -73,20 +73,67 @@ Creating a shotgun
 Creating a shotgun
 Creating a rocket_launcher
 maps/Raven_DM1.map loaded okay
-deleting raven bot (id = 417)
-BOT 455 IS STUCK!!
-deleting raven bot (id = 460)
-deleting raven bot (id = 455)
-deleting raven bot (id = 454)
-deleting raven bot (id = 451)
-deleting raven bot (id = 450)
-deleting raven bot (id = 436)
-deleting raven bot (id = 435)
-deleting raven bot (id = 421)
-deleting raven bot (id = 420)
+Teams creation is complete : 2 Red vs 1 Blue
+New player for Team Blue : 2 Red vs 2 Blue
+New player for Team Red : 3 Red vs 2 Blue
+New player for Team Blue : 3 Red vs 3 Blue
+New player for Team Red : 4 Red vs 3 Blue
+New player for Team Blue : 4 Red vs 4 Blue
+New player for Team Red : 5 Red vs 4 Blue
+New player for Team Blue : 5 Red vs 5 Blue
+New player for Team Red : 6 Red vs 5 Blue
+New player for Team Blue : 6 Red vs 6 Blue
+New player for Team Red : 7 Red vs 6 Blue
+New player for Team Blue : 7 Red vs 7 Blue
+New player for Team Red : 8 Red vs 7 Blue
+New player for Team Blue : 8 Red vs 8 Blue
+New player for Team Red : 9 Red vs 8 Blue
+New player for Team Blue : 9 Red vs 9 Blue
+New player for Team Red : 10 Red vs 9 Blue
+New player for Team Blue : 10 Red vs 10 Blue
+New player for Team Red : 11 Red vs 10 Blue
+New player for Team Blue : 11 Red vs 11 Blue
+New player for Team Red : 12 Red vs 11 Blue
+New player for Team Blue : 12 Red vs 12 Blue
+New player for Team Red : 13 Red vs 12 Blue
+New player for Team Blue : 13 Red vs 13 Blue
+New player for Team Red : 14 Red vs 13 Blue
+New player for Team Blue : 14 Red vs 14 Blue
+New player for Team Red : 15 Red vs 14 Blue
+New player for Team Blue : 15 Red vs 15 Blue
+Team Red scores ! Red : 5pts vs Blue : 0pts
+BOT 946 IS STUCK!!
+Team Blue scores ! Red : 5pts vs Blue : 5pts
+Team Blue scores ! Red : 5pts vs Blue : 10pts
+Team Red scores ! Red : 10pts vs Blue : 10pts
+BOT 946 IS STUCK!!
 deleting raven bot (id = 401)
 deleting raven bot (id = 402)
 deleting raven bot (id = 403)
-deleting raven bot (id = 802)
-deleting raven bot (id = 807)
-deleting raven bot (id = 814)
+deleting raven bot (id = 417)
+deleting raven bot (id = 426)
+deleting raven bot (id = 433)
+deleting raven bot (id = 438)
+deleting raven bot (id = 443)
+deleting raven bot (id = 444)
+deleting raven bot (id = 464)
+deleting raven bot (id = 465)
+deleting raven bot (id = 466)
+deleting raven bot (id = 471)
+deleting raven bot (id = 478)
+deleting raven bot (id = 798)
+deleting raven bot (id = 842)
+deleting raven bot (id = 867)
+deleting raven bot (id = 878)
+deleting raven bot (id = 883)
+deleting raven bot (id = 911)
+deleting raven bot (id = 914)
+deleting raven bot (id = 925)
+deleting raven bot (id = 936)
+deleting raven bot (id = 941)
+deleting raven bot (id = 946)
+deleting raven bot (id = 963)
+deleting raven bot (id = 966)
+deleting raven bot (id = 975)
+deleting raven bot (id = 1007)
+deleting raven bot (id = 1012)

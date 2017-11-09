@@ -1,11 +1,31 @@
 #include "Team.h"
 #include "Raven_Bot.h"
+#include "debug/DebugConsole.h"
 
 // nbBot in team Blue
 int Team::nbBlue = 0;
 
 // nbBot in team Red
 int Team::nbRed = 0;
+
+// points earned for killing a bot
+int Team::pointsPerKill = 5;
+
+// score blue
+int Team::scoreBlue = 0;
+
+// score red
+int Team::scoreRed = 0;
+
+// spot radius
+double Team::spotRadius = 15.0f;
+
+// spot pos in team Blue
+Vector2D Team::spotBlue(430.0f,380.0f);
+
+// spot pos in team Red
+Vector2D Team::spotRed(250.0f, 40.0f);
+
 
 void Team::createTeam(std::list<Raven_Bot*> mBots)
 {
@@ -28,6 +48,7 @@ void Team::createTeam(std::list<Raven_Bot*> mBots)
 		// we change the team value 
 		(*curBot)->setTeam(blue);
 	}
+	debug_con << "Teams creation is complete : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";
 }
 
 void Team::destroyTeam(std::list<Raven_Bot*> mBots)
@@ -43,4 +64,16 @@ void Team::destroyTeam(std::list<Raven_Bot*> mBots)
 	// reset team counter 
 	nbBlue = 0;
 	nbRed = 0;
+
+	debug_con << "Teams have been destroyed!" << "";
+}
+
+void Team::increasedRedScore() {
+	Team::scoreRed += Team::pointsPerKill;
+	debug_con << "Team Red scores ! Red : " << Team::scoreRed << "pts vs Blue : " << Team::scoreBlue << "pts" << "";
+}
+
+void Team::increasedBlueScore() {
+	Team::scoreBlue += Team::pointsPerKill;
+	debug_con << "Team Blue scores ! Red : " << Team::scoreRed << "pts vs Blue : " << Team::scoreBlue << "pts" << "";
 }

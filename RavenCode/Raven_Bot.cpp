@@ -343,6 +343,10 @@ void Raven_Bot::ReduceHealth(unsigned int val)
   if (m_iHealth <= 0)
   {
     SetDead();
+
+	// get the points to the opposite team if team on
+	if (m_team == Team::blue) { Team::increasedRedScore(); }
+	else if (m_team == Team::red) { Team::increasedBlueScore(); }
   }
 
   m_bHit = true;
