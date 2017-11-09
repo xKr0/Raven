@@ -360,12 +360,9 @@ void Raven_Bot::ReduceHealth(unsigned int val)
 //-----------------------------------------------------------------------------
 void Raven_Bot::TakePossession()
 {
-  if ( !(isSpawning() || isDead()))
-  {
     m_bPossessed = true;
 
     debug_con << "Player Possesses bot " << this->ID() << "";
-  }
 }
 //------------------------------- Exorcise ------------------------------------
 //
