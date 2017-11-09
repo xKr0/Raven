@@ -37,16 +37,18 @@ void Team::createTeam(std::list<Raven_Bot*> mBots)
 
 	// for each bot 
 	std::list<Raven_Bot*>::iterator curBot = mBots.begin();
-	for (curBot; i <= nbBots/2; ++curBot, i++)
+	for (curBot; curBot != mBots.end(); ++curBot)
 	{
-		// we change the team value 
-		(*curBot)->setTeam(red);
-	}
-
-	for (curBot; i <= nbBots-1; ++curBot, i++)
-	{
-		// we change the team value 
-		(*curBot)->setTeam(blue);
+		if (i == 0) {
+			// we change the team value 
+			(*curBot)->setTeam(red);
+			i++;
+		}
+		else if (i == 1) {
+			// we change the team value 
+			(*curBot)->setTeam(blue);
+			i--;
+		}
 	}
 	debug_con << "Teams creation is complete : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";
 }
