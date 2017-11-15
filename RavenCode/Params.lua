@@ -179,5 +179,16 @@ Pellet_Scale       = Bot_Scale
 Pellet_Persistance = 0.1
 Pellet_Damage      = 1
 
+Knifse_FiringFreq       = 1
+Knifes_MaxSpeed		 = 5
+Knifes_DefaultRounds    = 0 
+Knifes_MaxRoundsCarried = 0 
+Knifes_IdealRange		   = 10
+Knifes_SoundRange	     = 50
 
+Knife_MaxSpeed    = 5
+Knife_Mass        = 1
+Knife_MaxForce    = 100.0
+Knife_Scale       = Bot_Scale
+Knife_Damage      = 40
   
