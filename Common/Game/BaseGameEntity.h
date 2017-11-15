@@ -29,6 +29,10 @@ public:
   
   enum {default_entity_type = -1};
 
+  //this is the next valid ID. Each time a BaseGameEntity is instantiated
+  //this value is updated
+  static int  m_iNextValidID;
+
 private:
   
   //each entity has a unique ID
@@ -39,10 +43,6 @@ private:
 
   //this is a generic flag. 
   bool        m_bTag;
-
-  //this is the next valid ID. Each time a BaseGameEntity is instantiated
-  //this value is updated
-  static int  m_iNextValidID;
 
   //this must be called within each constructor to make sure the ID is set
   //correctly. It verifies that the value passed to the method is greater

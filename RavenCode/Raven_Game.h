@@ -59,6 +59,9 @@ private:
   //if true the game will be paused
   bool                             m_bPaused;
 
+  // if there is a player
+  bool                             m_bActivePlayer;
+
   //if true a bot is removed from the game
   bool                             m_bRemoveABot;
 
@@ -102,7 +105,7 @@ public:
   bool LoadMap(const std::string& FileName); 
 
   void AddBots(unsigned int NumBotsToAdd);
-  void AddPlayer();
+  void ActivePlayer();
   void AddRocket(Raven_Bot* shooter, Vector2D target);
   void AddRailGunSlug(Raven_Bot* shooter, Vector2D target);
   void AddShotGunPellet(Raven_Bot* shooter, Vector2D target);
@@ -175,13 +178,13 @@ public:
 
   void createTeam() {
 	  if (isTeamOn) {
-		  Team::destroyTeam(m_Bots);
+		  Team::destroyTeam(m_Bots, m_pMap);
 
 		// we turn off the bool
 		  isTeamOn = false;
 	  }
 	  else {
-		  Team::createTeam(m_Bots);
+		  Team::createTeam(m_Bots, m_pMap);
 		  // we turn the bool to true
 		  isTeamOn = true;
 	  }

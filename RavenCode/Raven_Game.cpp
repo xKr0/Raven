@@ -16,6 +16,7 @@
 #include "messaging/MessageDispatcher.h"
 #include "Raven_Messages.h"
 #include "GraveMarkers.h"
+#include "Trigger_TeamWeaponCache.h"
 
 #include "armory/Raven_Projectile.h"
 #include "armory/Projectile_Rocket.h"
@@ -41,6 +42,7 @@ Raven_Game::Raven_Game():m_pSelectedBot(NULL),
                          m_bRemoveABot(false),
                          m_pMap(NULL),
                          m_pPathManager(NULL),
+						 m_bActivePlayer(false),
                          m_pGraveMarkers(NULL)
 {
   //load in the default map
@@ -195,6 +197,26 @@ void Raven_Game::Update()
 
     m_bRemoveABot = false;
   }
+  
+  if (m_bActivePlayer)
+  {
+	  Raven_Bot* pBot = m_Bots.front();
+	  if (!pBot->isPossessed())
+	  {
+		  pBot->TakePossession();
+		  pBot->GetBrain()->RemoveAllSubgoals();
+		  m_pSelectedBot = pBot;
+	  }
+  }
+
+  if (!m_bActivePlayer)
+  {
+	  if (m_pSelectedBot && m_pSelectedBot->isPossessed())
+	  {
+		  m_pSelectedBot->Exorcise();
+		  m_pSelectedBot=NULL;
+	  }
+  }
 }
 
 
@@ -283,26 +305,20 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
   }
 }
 
-//-------------------------- AddBots --------------------------------------
+//-------------------------- ActivePlayer --------------------------------------
 //
-//  Adds a bot and switches on the default steering behavior
+//  Player take control of a bot
 //-----------------------------------------------------------------------------
-void Raven_Game::AddPlayer()
+void Raven_Game::ActivePlayer()
 {
-		//create a bot. (its position is irrelevant at this point because it will
-		//not be rendered until it is spawned)
-		Raven_Bot* rb = new Raven_Bot(this, Vector2D());
-		rb->TakePossession();
-		rb->GetBrain()->RemoveAllSubgoals();
-		//switch the default steering behaviors on
-		m_pSelectedBot = rb;
-		rb->GetSteering()->WallAvoidanceOn();
-		rb->GetSteering()->SeparationOn();
-
-		m_Bots.push_back(rb);
-		//register the bot with the entity manager
-		EntityMgr->RegisterEntity(rb);
-
+	if (m_pSelectedBot && m_pSelectedBot->isPossessed())
+	{
+		m_bActivePlayer = false;	
+	}
+	else
+	{
+		m_bActivePlayer = true;
+	}
 }
 
 //---------------------------- NotifyAllBotsOfRemoval -------------------------
@@ -434,7 +450,6 @@ bool Raven_Game::LoadMap(const std::string& filename)
   if (m_pMap->LoadMap(filename))
   { 
     AddBots(script->GetInt("NumBots"));
-	AddPlayer();
   
     return true;
   }
@@ -466,7 +481,6 @@ void Raven_Game::ExorciseAnyPossessedBot()
 void Raven_Game::ClickRightMouseButton(POINTS p)
 {
   Raven_Bot* pBot = GetBotAtPosition(POINTStoVector(p));
-
   //if there is no selected bot just return;
   if (!pBot && m_pSelectedBot == NULL) return;
 
@@ -519,12 +533,6 @@ void Raven_Game::ClickLeftMouseButton(POINTS p)
 {
   if (m_pSelectedBot && m_pSelectedBot->isPossessed())
   {
-	  if (IS_KEY_PRESSED('A'))
-	  {
-		  debug_con << "testttt" << "";
-		  m_pSelectedBot->ChangeWeapon(type_rocket_launcher);
-		  debug_con << "testttt" << "";
-	  }
     m_pSelectedBot->FireWeapon(POINTStoVector(p));
   }
   

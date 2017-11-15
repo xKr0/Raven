@@ -168,6 +168,12 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
 			 break;
 
+		 case 'P':
+
+			 g_pRaven->ActivePlayer();
+
+			 break;
+
 
          case VK_UP:
 
