@@ -274,6 +274,9 @@
     <ClCompile Include="Trigger_TeamWeaponCache.cpp">
       <Filter>AI\Triggers</Filter>
     </ClCompile>
+    <ClCompile Include="goals\Goal_DodgeOnce.cpp">
+      <Filter>AI\goals\composite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -617,6 +620,9 @@
     </ClInclude>
     <ClInclude Include="Trigger_TeamWeaponCache.h">
       <Filter>AI\Triggers</Filter>
+    </ClInclude>
+    <ClInclude Include="goals\Goal_DodgeOnce.h">
+      <Filter>AI\goals\composite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
