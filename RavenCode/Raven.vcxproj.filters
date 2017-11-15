@@ -275,7 +275,7 @@
       <Filter>AI\Triggers</Filter>
     </ClCompile>
     <ClCompile Include="goals\Goal_DodgeOnce.cpp">
-      <Filter>AI\goals\composite</Filter>
+      <Filter>AI\goals\atomic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -622,7 +622,7 @@
       <Filter>AI\Triggers</Filter>
     </ClInclude>
     <ClInclude Include="goals\Goal_DodgeOnce.h">
-      <Filter>AI\goals\composite</Filter>
+      <Filter>AI\goals\atomic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
