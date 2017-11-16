@@ -96,4 +96,3 @@ void Knife::Render()
 	gdi->ThickBlackPen();
 	gdi->Line(Pos(), Pos() - Velocity());
 }
-
