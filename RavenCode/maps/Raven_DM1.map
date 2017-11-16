@@ -1,4 +1,4 @@
-341
+340
 Index: 0 PosX: 250 PosY: 200
 Index: 1 PosX: 250 PosY: 180
 Index: 2 PosX: 250 PosY: 220
@@ -339,7 +339,6 @@ Index: 336 PosX: 70 PosY: 260
 Index: 337 PosX: 450 PosY: 60
 Index: 338 PosX: 360 PosY: 330
 Index: 339 PosX: 110 PosY: 380
-Index: 340 PosX: 200 PosY: 340
 2150
 From: 0 To: 1 Cost: 20 Flags: 0 ID: -1
 From: 0 To: 2 Cost: 20 Flags: 0 ID: -1
@@ -2561,4 +2560,4 @@ From: 339 To: 291 Cost: 28.2843 Flags: 0 ID: -1
 8 398  450 60 7  337
 13 399  360 330 7  338
 7 400  110 380 7  339
-13 401 200 340 7 340
+13 401 190 340 7 121
