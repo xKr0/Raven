@@ -158,6 +158,8 @@ public:
 
   //when called will release any possessed bot from user control
   void        ExorciseAnyPossessedBot();
+
+
  
   //if a bot is possessed the keyboard is polled for user input and any 
   //relevant bot methods are called appropriately
@@ -175,6 +177,7 @@ public:
   
   void  TagRaven_BotsWithinViewRange(BaseGameEntity* pRaven_Bot, double range)
               {TagNeighbors(pRaven_Bot, m_Bots, range);} 
+
 
   void createTeam() {
 	  if (isTeamOn) {

@@ -59,6 +59,10 @@ public:
 
 	// Increase the score of blue team
 	static void increasedBlueScore();
+	
+	static int leaderRed;
+
+	static int leaderBlue;
 };
 
 #endif // TEAM

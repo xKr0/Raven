@@ -47,6 +47,7 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
                  m_Status(spawning),
                  m_bPossessed(false),
 				 m_team(Team::none),
+				 m_leader(false),
                  m_dFieldOfView(DegsToRads(script->GetDouble("Bot_FOV")))
            
 {
@@ -618,4 +619,9 @@ void Raven_Bot::IncreaseHealth(unsigned int val)
 {
   m_iHealth+=val; 
   Clamp(m_iHealth, 0, m_iMaxHealth);
+}
+
+void Raven_Bot::Lead()
+{
+	m_leader = true;
 }

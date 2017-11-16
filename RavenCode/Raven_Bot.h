@@ -81,6 +81,8 @@ private:
 
   //each time this bot kills another this value is incremented
   int                                m_iScore;
+
+  bool								 m_leader;
   
   //the direction the bot is facing (and therefore the direction of aim). 
   //Note that this may not be the same as the bot's heading, which always
@@ -188,6 +190,8 @@ public:
 
   //spawns the bot at the given position
   void          Spawn(Vector2D pos);
+
+  void		    Lead();
   
   //returns true if this bot is ready to test against all triggers
   bool          isReadyForTriggerUpdate()const;
