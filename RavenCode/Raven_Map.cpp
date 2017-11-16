@@ -291,6 +291,10 @@ bool Raven_Map::LoadMap(const std::string& filename)
      
        AddWeapon_Giver(type_rocket_launcher, in); break;
 
+   case type_knife:
+
+	   AddWeapon_Giver(type_knife, in); break;
+
     default:
       
       throw std::runtime_error("<Map::Load>: Attempting to load undefined object");

@@ -613,8 +613,8 @@ void Raven_Bot::Render()
   if (UserOptions->m_bShowTeam)
   {
 	  if (m_team == Team::red) {
-		gdi->TextColor(gdi->red);
-		gdi->TextAtPos(Pos().x - 40, Pos().y - 20, "RED");
+		 gdi->TextColor(gdi->red);
+		 gdi->TextAtPos(Pos().x - 40, Pos().y - 20, "RED");
 	  }
 	  else if (m_team == Team::blue) {
 		 gdi->TextColor(gdi->blue);

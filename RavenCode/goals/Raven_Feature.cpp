@@ -48,6 +48,10 @@ double GetMaxRoundsBotCanCarryForWeapon(int WeaponType)
 
     return script->GetDouble("ShotGun_MaxRoundsCarried");
 
+  case type_knife:
+
+	  return script->GetDouble("Knifes_MaxRoundsCarried");
+
   default:
 
     throw std::runtime_error("trying to calculate  of unknown weapon");
