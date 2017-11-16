@@ -24,7 +24,7 @@
 #include "Graph/GraphNodeTypes.h"
 #include "misc/CellSpacePartition.h"
 #include "triggers/TriggerSystem.h"
-#include "Trigger_TeamWeaponCache.h"
+#include "triggers/Trigger_TeamWeaponCache.h"
 
 class BaseGameEntity;
 class Raven_Door;

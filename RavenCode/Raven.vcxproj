@@ -221,6 +221,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="goals\Goal_DodgeOnce.cpp" />
+    <ClCompile Include="goals\Goal_GoToCache.cpp" />
+    <ClCompile Include="goals\GoToCacheGoal_Evaluator.cpp" />
     <ClCompile Include="main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -487,6 +489,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="triggers\Trigger_TeamWeaponCache.cpp" />
     <ClCompile Include="triggers\Trigger_WeaponGiver.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -537,10 +540,12 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="Trigger_TeamWeaponCache.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="goals\Goal_DodgeOnce.h" />
+    <ClInclude Include="goals\Goal_GetItem.h" />
+    <ClInclude Include="goals\Goal_GoToCache.h" />
+    <ClInclude Include="goals\GoToCacheGoal_Evaluator.h" />
     <ClInclude Include="Raven_Bot.h" />
     <ClInclude Include="Raven_Game.h" />
     <ClInclude Include="Raven_Map.h" />
@@ -576,7 +581,6 @@
     <ClInclude Include="..\Common\Goals\Goal_Composite.h" />
     <ClInclude Include="goals\Goal_Explore.h" />
     <ClInclude Include="goals\Goal_FollowPath.h" />
-    <ClInclude Include="goals\Goal_GetItem.h" />
     <ClInclude Include="goals\Goal_HuntTarget.h" />
     <ClInclude Include="goals\Goal_MoveToPosition.h" />
     <ClInclude Include="goals\Goal_NegotiateDoor.h" />
@@ -631,6 +635,7 @@
     <ClInclude Include="triggers\Trigger_OnButtonSendMsg.h" />
     <ClInclude Include="..\Common\Triggers\Trigger_ReSpawning.h" />
     <ClInclude Include="triggers\Trigger_SoundNotify.h" />
+    <ClInclude Include="triggers\Trigger_TeamWeaponCache.h" />
     <ClInclude Include="triggers\Trigger_WeaponGiver.h" />
     <ClInclude Include="..\Common\Triggers\TriggerRegion.h" />
     <ClInclude Include="..\Common\Triggers\TriggerSystem.h" />
@@ -654,7 +659,6 @@
     <ClInclude Include="..\Common\2D\Wall2D.h" />
     <ClInclude Include="..\Common\2D\WallIntersectionTests.h" />
     <ClInclude Include="..\Common\misc\WindowUtils.h" />
-    <ClInclude Include="Trigger_TeamWeaponCache.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua" />

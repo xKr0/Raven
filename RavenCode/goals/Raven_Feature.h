@@ -17,6 +17,8 @@ class Raven_Feature
 {
 public:
 
+	static double DistanceToCache(Raven_Bot* pBot, Trigger_TeamWeaponCache* cache);
+
   //returns a value between 0 and 1 based on the bot's health. The better
   //the health, the higher the rating
   static double Health(Raven_Bot* pBot);

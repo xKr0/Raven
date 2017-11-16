@@ -1,8 +1,8 @@
 #include "Trigger_TeamWeaponCache.h"
 #include "misc/Cgdi.h"
-#include "Raven_Bot.h"
+#include "../Raven_Bot.h"
 #include "Debug\DebugConsole.h"
-#include "armory\Raven_Weapon.h"
+#include "../armory/Raven_Weapon.h"
 
 
 Trigger_TeamWeaponCache::Trigger_TeamWeaponCache(Vector2D pos, int radius, int GraphNodeIndex, Team::teamTag tag):
@@ -41,7 +41,7 @@ void Trigger_TeamWeaponCache::Try(Raven_Bot* pBot)
 	{
 		for (int weaponType : weaponsInCache)
 		{
-			debug_con << "Donne l'arme " << weaponType << " au bot " << pBot->ID() << "";
+			debug_con << "Give weapon " << weaponType << " to bot " << pBot->ID() << "";
 			pBot->GetWeaponSys()->AddWeapon(weaponType);
 		}
 	}
@@ -73,7 +73,7 @@ void Trigger_TeamWeaponCache::AddWeapons(std::list<Raven_Weapon*> weaponsToAdd)
 	{
 		// not a blaster
 		if (weapon->GetType() != 9) {
-			debug_con << "Ajout de l'arme au spot de la team" << "";
+			debug_con << "Added weapons to team cache" << "";
 			weaponsInCache.push_back(weapon->GetType());
 		}
 		

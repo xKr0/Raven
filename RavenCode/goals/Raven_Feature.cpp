@@ -5,6 +5,29 @@
 #include "../Raven_WeaponSystem.h"
 #include "../Raven_ObjectEnumerations.h"
 #include "../lua/Raven_Scriptor.h"
+#include "../Triggers/Trigger_TeamWeaponCache.h"
+
+//-----------------------------------------------------------------------------
+double DistanceToCache(Raven_Bot* pBot, Trigger_TeamWeaponCache* cache)
+{
+	// get the node from the given cache
+	int ndCache = cache->GraphNodeIndex();
+	//determine the distance to the node of an instance of the cache
+	double DistanceToCache = pBot->GetPathPlanner()->GetCostToNode(ndCache);
+
+	//if the previous method returns a negative value then there is no item of
+	//the specified type present in the game world at this time.
+	if (DistanceToCache < 0) return 1;
+
+	//these values represent cutoffs. Any distance over MaxDistance results in
+	//a value of 0, and value below MinDistance results in a value of 1
+	const double MaxDistance = 500.0;
+	const double MinDistance = 50.0;
+
+	Clamp(DistanceToCache, MinDistance, MaxDistance);
+
+	return DistanceToCache / MaxDistance;
+}
 
 //-----------------------------------------------------------------------------
 double Raven_Feature::DistanceToItem(Raven_Bot* pBot, int ItemType)

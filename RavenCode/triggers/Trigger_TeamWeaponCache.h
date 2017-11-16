@@ -1,7 +1,7 @@
 #pragma once
-#include "Team.h"
+#include "../Team.h"
 #include "Triggers/Trigger_Respawning.h"
-#include "Raven_WeaponSystem.h"
+#include "../Raven_WeaponSystem.h"
 
 class Raven_Bot;
 
@@ -40,4 +40,6 @@ public:
 	};
 
 	void SetCacheActive() { SetActive(); };
+
+	bool isEmpty() { return weaponsInCache.size() == 0; }
 };
