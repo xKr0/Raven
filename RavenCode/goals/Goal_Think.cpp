@@ -182,8 +182,11 @@ void Goal_Think::AddGoal_AttackTarget()
 
 void Goal_Think::AddGoal_GoToCache(Vector2D pos, Trigger_TeamWeaponCache* trigger)
 {
-	debug_con << "aaaaaaaaaaaaaaaaaaa" << "";
-	AddSubgoal(new Goal_GoToCache(m_pOwner, pos, trigger));
+	if (notPresent(goal_go_to_cache))
+	{
+		RemoveAllSubgoals();
+		AddSubgoal(new Goal_GoToCache(m_pOwner, pos, trigger));
+	}	
 }
 
 //-------------------------- Queue Goals --------------------------------------

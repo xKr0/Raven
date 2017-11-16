@@ -17,17 +17,14 @@ void Goal_GoToCache::Activate()
 {
 	m_iStatus = active;
 
-	debug_con << "GO_TO_CACHE_ACTIVE ! : " << "";
-
 	//if this goal is reactivated then there may be some existing subgoals that
 	//must be removed
 	RemoveAllSubgoals();
 
 	// get path in graph to the cache spot on map
-	if (m_pOwner->GetPathPlanner()->RequestPathToPosition(m_vCachePos))
-	{
-		AddSubgoal(new Goal_SeekToPosition(m_pOwner, m_vCachePos));
-	}
+	m_pOwner->GetPathPlanner()->RequestPathToPosition(m_vCachePos);
+
+	AddSubgoal(new Goal_SeekToPosition(m_pOwner, m_vCachePos));
 }
 
 //-------------------------- Process ------------------------------------------
@@ -62,4 +59,40 @@ bool Goal_GoToCache::cacheHasBeenEmptied()const
 	}
 
 	return false;
+}
+
+
+//---------------------------- HandleMessage ----------------------------------
+//-----------------------------------------------------------------------------
+bool Goal_GoToCache::HandleMessage(const Telegram& msg)
+{
+	//first, pass the message down the goal hierarchy
+	bool bHandled = ForwardMessageToFrontMostSubgoal(msg);
+
+	//if the msg was not handled, test to see if this goal can handle it
+	if (bHandled == false)
+	{
+		switch (msg.Msg)
+		{
+		case Msg_PathReady:
+			//clear any existing goals
+			RemoveAllSubgoals();
+
+			AddSubgoal(new Goal_FollowPath(m_pOwner,
+				m_pOwner->GetPathPlanner()->GetPath()));
+
+			return true; //msg handled
+
+
+		case Msg_NoPathAvailable:
+			m_iStatus = failed;
+
+			return true; //msg handled
+
+		default: return false;
+		}
+	}
+
+	//handled by subgoals
+	return true;
 }

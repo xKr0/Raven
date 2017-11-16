@@ -23,8 +23,7 @@ double GoToCacheGoal_Evaluator::CalculateDesirability(Raven_Bot* pBot)
 
 	if (triggerCache != NULL && !triggerCache->isEmpty()){
 	//only do the calculation if there is a cache
-
-		const double Tweaker = 0.5;
+		const double Tweaker = 0.4;
 
 		double Health, Distance, WeaponStrength;
 
@@ -32,12 +31,10 @@ double GoToCacheGoal_Evaluator::CalculateDesirability(Raven_Bot* pBot)
 		Distance = Raven_Feature::DistanceToCache(pBot, triggerCache);
 		WeaponStrength = Raven_Feature::TotalWeaponStrength(pBot);
 
-		double Desirability = (Tweaker /* Health */ * (1 - WeaponStrength)) / Distance;
+		Desirability = (Tweaker * Health * (1 - WeaponStrength)) / Distance;
 
 		//ensure the value is in the range 0 to 1
 		Clamp(Desirability, 0, 1);	
-
-		debug_con << "go_to_cache_eval : " << Desirability << "";
 	}
 
 	return Desirability;
@@ -47,7 +44,6 @@ double GoToCacheGoal_Evaluator::CalculateDesirability(Raven_Bot* pBot)
 //-----------------------------------------------------------------------------
 void GoToCacheGoal_Evaluator::SetGoal(Raven_Bot* pBot)
 {
-	debug_con << "goal_set_cache for bot " << pBot->ID() << "";
 	pBot->GetBrain()->AddGoal_GoToCache(m_vCachePos, triggerCache);
 }
 
@@ -64,15 +60,15 @@ void GoToCacheGoal_Evaluator::RenderInfo(Vector2D Position, Raven_Bot* pBot)
 
 void GoToCacheGoal_Evaluator::SetCache(Raven_Bot* pBot) {
 	if (pBot->getTag() == Team::red) {
-		m_vCachePos == Team::spotRed;
+		m_vCachePos = Team::spotRed;
 		triggerCache = Team::teamRed;
 	}
 	else if (pBot->getTag() == Team::red) {
-		m_vCachePos == Team::spotBlue;
+		m_vCachePos = Team::spotBlue;
 		triggerCache = Team::teamBlue;
 	}
 	else {
-		m_vCachePos == pBot->Pos();
+		m_vCachePos = pBot->Pos();
 		triggerCache = NULL;
 	}
 }

@@ -35,6 +35,8 @@ public:
 
 	bool cacheHasBeenEmptied()const;
 
+	bool HandleMessage(const Telegram& msg);
+
 };
 #endif
 

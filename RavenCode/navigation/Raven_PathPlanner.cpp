@@ -362,7 +362,6 @@ bool Raven_PathPlanner::RequestPathToPosition(Vector2D TargetPos)
 #ifdef SHOW_NAVINFO
     debug_con << "No closest node to bot found!" << "";
 #endif
-
     return false; 
   }
 
@@ -382,7 +381,7 @@ bool Raven_PathPlanner::RequestPathToPosition(Vector2D TargetPos)
 #ifdef SHOW_NAVINFO
     debug_con << "No closest node to target (" << ClosestNodeToTarget << ") found!" << "";
 #endif
-
+	debug_con << "Pas de closest node" << "";
     return false; 
   }
 
