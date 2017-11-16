@@ -277,6 +277,12 @@
     <ClCompile Include="goals\Goal_DodgeOnce.cpp">
       <Filter>AI\goals\atomic</Filter>
     </ClCompile>
+    <ClCompile Include="armory\Projectile_knife.cpp">
+      <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="armory\Weapon_Knife.cpp">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -623,6 +629,12 @@
     </ClInclude>
     <ClInclude Include="goals\Goal_DodgeOnce.h">
       <Filter>AI\goals\atomic</Filter>
+    </ClInclude>
+    <ClInclude Include="armory\Projectile_knife.h">
+      <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="armory\Weapon_Knife.h">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

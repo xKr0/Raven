@@ -220,6 +220,8 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="armory\Projectile_knife.cpp" />
+    <ClCompile Include="armory\Weapon_Knife.cpp" />
     <ClCompile Include="goals\Goal_DodgeOnce.cpp" />
     <ClCompile Include="main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -540,6 +542,8 @@
     <ClCompile Include="Trigger_TeamWeaponCache.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="armory\Projectile_knife.h" />
+    <ClInclude Include="armory\Weapon_Knife.h" />
     <ClInclude Include="goals\Goal_DodgeOnce.h" />
     <ClInclude Include="Raven_Bot.h" />
     <ClInclude Include="Raven_Game.h" />
