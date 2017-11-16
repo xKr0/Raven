@@ -178,13 +178,13 @@ public:
 
   void createTeam() {
 	  if (isTeamOn) {
-		  Team::destroyTeam(m_Bots);
+		  Team::destroyTeam(m_Bots, m_pMap);
 
 		// we turn off the bool
 		  isTeamOn = false;
 	  }
 	  else {
-		  Team::createTeam(m_Bots);
+		  Team::createTeam(m_Bots, m_pMap);
 		  // we turn the bool to true
 		  isTeamOn = true;
 	  }

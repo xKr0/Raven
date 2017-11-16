@@ -347,6 +347,14 @@ void Raven_Bot::ReduceHealth(unsigned int val)
 	// get the points to the opposite team if team on
 	if (m_team == Team::blue) { Team::increasedRedScore(); }
 	else if (m_team == Team::red) { Team::increasedBlueScore(); }
+
+	// give all the weapon to the spawn
+	if (m_team == Team::blue) {
+		Team::teamBlue->AddWeapons(m_pWeaponSys->GetInventory());
+	}
+	else if (m_team == Team::red) {
+		Team::teamRed->AddWeapons(m_pWeaponSys->GetInventory());
+	}	
   }
 
   m_bHit = true;
@@ -557,8 +565,8 @@ void Raven_Bot::Render()
   if (UserOptions->m_bShowTeam)
   {
 	  if (m_team == Team::red) {
-		gdi->TextColor(gdi->red);
-		gdi->TextAtPos(Pos().x - 40, Pos().y - 20, "RED");
+		 gdi->TextColor(gdi->red);
+		 gdi->TextAtPos(Pos().x - 40, Pos().y - 20, "RED");
 	  }
 	  else if (m_team == Team::blue) {
 		 gdi->TextColor(gdi->blue);

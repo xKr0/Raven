@@ -1,6 +1,8 @@
 #include "Team.h"
 #include "Raven_Bot.h"
+#include "Raven_Map.h"
 #include "debug/DebugConsole.h"
+#include "Trigger_TeamWeaponCache.h"
 
 // nbBot in team Blue
 int Team::nbBlue = 0;
@@ -26,8 +28,13 @@ Vector2D Team::spotBlue(430.0f,380.0f);
 // spot pos in team Red
 Vector2D Team::spotRed(250.0f, 40.0f);
 
+// weapon cache
+Trigger_TeamWeaponCache* Team::teamRed = new Trigger_TeamWeaponCache(Team::spotRed, 10, 80, Team::red);
 
-void Team::createTeam(std::list<Raven_Bot*> mBots)
+Trigger_TeamWeaponCache* Team::teamBlue = new Trigger_TeamWeaponCache(Team::spotBlue, 10, 80, Team::blue);
+
+
+void Team::createTeam(std::list<Raven_Bot*> mBots, Raven_Map* pMap)
 {
 	// list size
 	int nbBots = mBots.size();
@@ -50,10 +57,15 @@ void Team::createTeam(std::list<Raven_Bot*> mBots)
 			i--;
 		}
 	}
+
+	// create the cache for the team
+	pMap->AddTeamWeaponCache(teamBlue);
+	pMap->AddTeamWeaponCache(teamRed);
+
 	debug_con << "Teams creation is complete : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";
 }
 
-void Team::destroyTeam(std::list<Raven_Bot*> mBots)
+void Team::destroyTeam(std::list<Raven_Bot*> mBots, Raven_Map* pMap)
 {
 	// for each bot 
 	std::list<Raven_Bot*>::iterator curBot = mBots.begin();
@@ -79,6 +91,10 @@ void Team::destroyTeam(std::list<Raven_Bot*> mBots)
 	nbRed = 0;
 	scoreBlue = 0;
 	scoreRed = 0;
+
+	// setInactive 
+	/*teamBlue->SetCacheInactive();
+	teamRed->SetCacheInactive();*/
 
 	debug_con << "Teams have been destroyed!" << "";
 }

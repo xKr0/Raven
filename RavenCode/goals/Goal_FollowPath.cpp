@@ -5,6 +5,7 @@
 #include "Goal_TraverseEdge.h"
 #include "Goal_NegotiateDoor.h"
 #include "misc/cgdi.h"
+#include "Goal_DodgeOnce.h"
 
 
 
@@ -37,6 +38,17 @@ void Goal_FollowPath::Activate()
   {
   case NavGraphEdge::normal:
     {
+	  if (!m_pOwner->isPossessed())
+	  {
+		  if (m_pOwner->GetTargetSys()->isTargetShootable())
+		  {
+			  Vector2D dummy;
+			  if (m_pOwner->canStepLeft(dummy) || m_pOwner->canStepRight(dummy))
+			  {
+				  AddSubgoal(new Goal_DodgeOnce(m_pOwner));
+			  }
+		  }
+	  }
       AddSubgoal(new Goal_TraverseEdge(m_pOwner, edge, m_Path.empty()));
     }
 

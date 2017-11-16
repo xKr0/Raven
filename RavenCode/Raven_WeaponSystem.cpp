@@ -104,6 +104,25 @@ void Raven_WeaponSystem::SelectWeapon()
   }
 }
 
+std::list<Raven_Weapon*> Raven_WeaponSystem::GetInventory()
+{	
+	// create a tmp list
+	std::list<Raven_Weapon*> listWeapon = std::list<Raven_Weapon*>();
+
+	// curWeap to iterate
+	WeaponMap::const_iterator curWeap;
+	// iterate and add them to the list of weapon
+	for (curWeap = m_WeaponMap.begin(); curWeap != m_WeaponMap.end(); ++curWeap)
+	{
+		if (curWeap->second)
+		{
+			listWeapon.push_back(curWeap->second);
+		}
+	}
+
+	return listWeapon;
+}
+
 //--------------------  AddWeapon ------------------------------------------
 //
 //  this is called by a weapon affector and will add a weapon of the specified

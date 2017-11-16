@@ -4,7 +4,9 @@
 #include <list>
 #include "2D/Vector2D.h"
 
+class Raven_Map;
 class Raven_Bot;
+class Trigger_TeamWeaponCache;
 
 class Team
 {
@@ -16,6 +18,11 @@ public:
 		red,
 		none
 	};
+
+	// weapon cache
+	static Trigger_TeamWeaponCache* teamRed;
+
+	static Trigger_TeamWeaponCache* teamBlue;
 
 	// points earned for killing a bot
 	static int pointsPerKill;
@@ -42,10 +49,10 @@ public:
 	static double spotRadius;
 
 	// Separate the list of bot into two different teams
-	static void createTeam(std::list<Raven_Bot*> mBots);
+	static void createTeam(std::list<Raven_Bot*> mBots, Raven_Map* Map);
 
 	// Destroy the existing team
-	static void destroyTeam(std::list<Raven_Bot*> mBots);
+	static void destroyTeam(std::list<Raven_Bot*> mBots, Raven_Map* Map);
 
 	// Increase the score of red team
 	static void increasedRedScore();
