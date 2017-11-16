@@ -39,11 +39,17 @@ void Trigger_TeamWeaponCache::Try(Raven_Bot* pBot)
 {
 	if (this->isActive() && this->isTouchingTrigger(pBot->Pos(), pBot->BRadius()) && this->tag == pBot->getTag())
 	{
+		// lock this part of code so no weapon can be added while someone is getting them
+		lockWeaponCache.lock();
 		for (int weaponType : weaponsInCache)
 		{
 			debug_con << "Donne l'arme " << weaponType << " au bot " << pBot->ID() << "";
 			pBot->GetWeaponSys()->AddWeapon(weaponType);
 		}
+		// we empty the cache list of weapon
+		weaponsInCache.clear();
+		// we unlock so weapon can be added to the cache
+		lockWeaponCache.unlock();
 	}
 }
 
@@ -69,13 +75,14 @@ void Trigger_TeamWeaponCache::Render()
 
 void Trigger_TeamWeaponCache::AddWeapons(std::list<Raven_Weapon*> weaponsToAdd)
 {
+	lockWeaponCache.lock();
 	for (auto& weapon: weaponsToAdd)
 	{
 		// not a blaster
 		if (weapon->GetType() != 9) {
 			debug_con << "Ajout de l'arme au spot de la team" << "";
 			weaponsInCache.push_back(weapon->GetType());
-		}
-		
+		}		
 	}
+	lockWeaponCache.unlock();
 }
