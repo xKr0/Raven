@@ -33,9 +33,6 @@ public:
 
 	void Terminate() { m_iStatus = completed; }
 
-	//this goal is able to accept messages
-	bool HandleMessage(const Telegram& msg);
-
 	bool cacheHasBeenEmptied()const;
 
 };

@@ -30,6 +30,10 @@ int ItemTypeToGoalType(int gt)
 
     return goal_get_rocket_launcher;
 
+  case type_knife:
+
+	  return goal_get_knife;
+
   default: throw std::runtime_error("Goal_GetItem cannot determine item type");
 
   }//end switch

@@ -20,6 +20,8 @@
 #include "AttackTargetGoal_Evaluator.h"
 #include "GoToCacheGoal_Evaluator.h"
 
+#include "debug/DebugConsole.h"
+
 
 Goal_Think::Goal_Think(Raven_Bot* pBot):Goal_Composite<Raven_Bot>(pBot, goal_think)
 {
@@ -33,6 +35,7 @@ Goal_Think::Goal_Think(Raven_Bot* pBot):Goal_Composite<Raven_Bot>(pBot, goal_thi
   double ShotgunBias = RandInRange(LowRangeOfBias, HighRangeOfBias);
   double RocketLauncherBias = RandInRange(LowRangeOfBias, HighRangeOfBias);
   double RailgunBias = RandInRange(LowRangeOfBias, HighRangeOfBias);
+  double KnifesBias = RandInRange(LowRangeOfBias, HighRangeOfBias);
   double ExploreBias = RandInRange(LowRangeOfBias, HighRangeOfBias);
   double AttackBias = RandInRange(LowRangeOfBias, HighRangeOfBias);
 
@@ -49,6 +52,8 @@ Goal_Think::Goal_Think(Raven_Bot* pBot):Goal_Composite<Raven_Bot>(pBot, goal_thi
                                                      type_rail_gun));
   m_Evaluators.push_back(new GetWeaponGoal_Evaluator(RocketLauncherBias,
                                                      type_rocket_launcher));
+  m_Evaluators.push_back(new GetWeaponGoal_Evaluator(KnifesBias,
+	  type_knife));
 
   // evaluator for going to cache
   m_Evaluators.push_back(new GoToCacheGoal_Evaluator(CacheBias));
@@ -98,7 +103,7 @@ int Goal_Think::Process()
   return m_iStatus;
 }
 
-//----------------------------- Update ----------------------------------------
+//----------------------------- Arbitrate -------------------------------------
 // 
 //  this method iterates through each goal option to determine which one has
 //  the highest desirability.
@@ -113,6 +118,7 @@ void Goal_Think::Arbitrate()
   for (curDes; curDes != m_Evaluators.end(); ++curDes)
   {
     double desirabilty = (*curDes)->CalculateDesirability(m_pOwner);
+	//debug_con << "eval : " << desirabilty << "";
 
     if (desirabilty >= best)
     {
@@ -176,6 +182,7 @@ void Goal_Think::AddGoal_AttackTarget()
 
 void Goal_Think::AddGoal_GoToCache(Vector2D pos, Trigger_TeamWeaponCache* trigger)
 {
+	debug_con << "aaaaaaaaaaaaaaaaaaa" << "";
 	AddSubgoal(new Goal_GoToCache(m_pOwner, pos, trigger));
 }
 

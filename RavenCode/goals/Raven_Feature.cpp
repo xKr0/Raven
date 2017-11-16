@@ -5,10 +5,9 @@
 #include "../Raven_WeaponSystem.h"
 #include "../Raven_ObjectEnumerations.h"
 #include "../lua/Raven_Scriptor.h"
-#include "../Triggers/Trigger_TeamWeaponCache.h"
 
 //-----------------------------------------------------------------------------
-double DistanceToCache(Raven_Bot* pBot, Trigger_TeamWeaponCache* cache)
+double Raven_Feature::DistanceToCache(Raven_Bot* pBot, Trigger_TeamWeaponCache* cache)
 {
 	// get the node from the given cache
 	int ndCache = cache->GraphNodeIndex();
@@ -70,6 +69,10 @@ double GetMaxRoundsBotCanCarryForWeapon(int WeaponType)
   case type_shotgun:
 
     return script->GetDouble("ShotGun_MaxRoundsCarried");
+
+  case type_knife:
+
+	  return script->GetDouble("Knifes_MaxRoundsCarried");
 
   default:
 

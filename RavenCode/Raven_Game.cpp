@@ -16,13 +16,14 @@
 #include "messaging/MessageDispatcher.h"
 #include "Raven_Messages.h"
 #include "GraveMarkers.h"
-#include "Trigger_TeamWeaponCache.h"
+#include "triggers/Trigger_TeamWeaponCache.h"
 
 #include "armory/Raven_Projectile.h"
 #include "armory/Projectile_Rocket.h"
 #include "armory/Projectile_Pellet.h"
 #include "armory/Projectile_Slug.h"
 #include "armory/Projectile_Bolt.h"
+#include "armory/Projectile_Knife.h"
 
 #include "goals/Goal_Think.h"
 #include "goals/Raven_Goal_Types.h"
@@ -31,7 +32,7 @@
 #include "debug/DebugConsole.h"
 
 //uncomment to write object creation/deletion to debug console
-#define  LOG_CREATIONAL_STUFF
+//#define  LOG_CREATIONAL_STUFF
 #include "debug/DebugConsole.h"
 
 
@@ -398,6 +399,19 @@ void Raven_Game::AddShotGunPellet(Raven_Bot* shooter, Vector2D target)
 #endif
 }
 
+//--------------------------- AddKnife -----------------------------------------
+//-----------------------------------------------------------------------------
+void Raven_Game::AddKnife(Raven_Bot* shooter, Vector2D target)
+{
+	Raven_Projectile* rp = new Knife(shooter, target);
+
+	m_Projectiles.push_back(rp);
+
+#ifdef LOG_CREATIONAL_STUFF
+	debug_con << "Adding a knife " << rp->ID() << " at pos " << rp->Pos() << "";
+#endif
+}
+
 
 //----------------------------- GetBotAtPosition ------------------------------
 //
@@ -488,7 +502,7 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
 
   //if the cursor is over a different bot to the existing selection,
   //change selection
-  /*
+  /**/
   if (pBot && pBot != m_pSelectedBot)
   { 
     if (m_pSelectedBot) m_pSelectedBot->Exorcise();
@@ -499,14 +513,15 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
 
   //if the user clicks on a selected bot twice it becomes possessed(under
   //the player's control)
+  /**
   if (pBot && pBot == m_pSelectedBot)
   {
     m_pSelectedBot->TakePossession();
 
     //clear any current goals
     m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
-  }*/
-
+  }
+	/**
   //if the bot is possessed then a right click moves the bot to the cursor
   //position
   if (m_pSelectedBot->isPossessed())
@@ -525,6 +540,7 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
       m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(POINTStoVector(p));
     }
   }
+  /**/
 }
 
 //---------------------- ClickLeftMouseButton ---------------------------------
@@ -578,6 +594,10 @@ void Raven_Game::ChangeWeaponOfPossessedBot(unsigned int weapon)const
     case type_rail_gun:
       
       PossessedBot()->ChangeWeapon(type_rail_gun); return;
+
+	case type_knife:
+
+		PossessedBot()->ChangeWeapon(type_knife); return;
 
     }
   }
@@ -850,11 +870,12 @@ void Raven_Game::Render()
     {
       m_pSelectedBot->GetWeaponSys()->RenderDesirabilities();
     }
-
+	/**
    if (IS_KEY_PRESSED('Q') && m_pSelectedBot->isPossessed())
     {
       gdi->TextColor(255,0,0);
       gdi->TextAtPos(GetClientCursorPosition(), "Queuing");
     }
+	/**/
   }
 }

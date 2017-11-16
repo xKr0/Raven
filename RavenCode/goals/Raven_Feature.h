@@ -1,5 +1,7 @@
 #ifndef RAVEN_FEATURE_H
 #define RAVEN_FEATURE_H
+
+#include "../Triggers/Trigger_TeamWeaponCache.h"
 //-----------------------------------------------------------------------------
 //
 //  Name:   Raven_Feature.h

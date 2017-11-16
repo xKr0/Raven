@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="boundschecker|Win32">
@@ -220,6 +220,8 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="armory\Projectile_knife.cpp" />
+    <ClCompile Include="armory\Weapon_Knife.cpp" />
     <ClCompile Include="goals\Goal_DodgeOnce.cpp" />
     <ClCompile Include="goals\Goal_GoToCache.cpp" />
     <ClCompile Include="goals\GoToCacheGoal_Evaluator.cpp" />
@@ -542,6 +544,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="armory\Projectile_knife.h" />
+    <ClInclude Include="armory\Weapon_Knife.h" />
     <ClInclude Include="goals\Goal_DodgeOnce.h" />
     <ClInclude Include="goals\Goal_GetItem.h" />
     <ClInclude Include="goals\Goal_GoToCache.h" />

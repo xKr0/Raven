@@ -2,7 +2,7 @@
 #include "Raven_Bot.h"
 #include "Raven_Map.h"
 #include "debug/DebugConsole.h"
-#include "Trigger_TeamWeaponCache.h"
+#include "triggers/Trigger_TeamWeaponCache.h"
 
 // nbBot in team Blue
 int Team::nbBlue = 0;
