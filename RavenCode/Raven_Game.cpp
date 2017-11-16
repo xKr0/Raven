@@ -502,7 +502,7 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
 
   //if the cursor is over a different bot to the existing selection,
   //change selection
-  /*
+  /**/
   if (pBot && pBot != m_pSelectedBot)
   { 
     if (m_pSelectedBot) m_pSelectedBot->Exorcise();
@@ -513,14 +513,15 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
 
   //if the user clicks on a selected bot twice it becomes possessed(under
   //the player's control)
+  /**
   if (pBot && pBot == m_pSelectedBot)
   {
     m_pSelectedBot->TakePossession();
 
     //clear any current goals
     m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
-  }*/
-
+  }
+	/**
   //if the bot is possessed then a right click moves the bot to the cursor
   //position
   if (m_pSelectedBot->isPossessed())
@@ -539,6 +540,7 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
       m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(POINTStoVector(p));
     }
   }
+  /**/
 }
 
 //---------------------- ClickLeftMouseButton ---------------------------------
@@ -868,11 +870,12 @@ void Raven_Game::Render()
     {
       m_pSelectedBot->GetWeaponSys()->RenderDesirabilities();
     }
-
+	/**
    if (IS_KEY_PRESSED('Q') && m_pSelectedBot->isPossessed())
     {
       gdi->TextColor(255,0,0);
       gdi->TextAtPos(GetClientCursorPosition(), "Queuing");
     }
+	/**/
   }
 }
