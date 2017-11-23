@@ -40,6 +40,7 @@ BEGIN
         MENUITEM "Show Node Indices",           IDM_NAVIGATION_SHOW_INDICES
         MENUITEM "Smooth Paths (quick)",        IDM_NAVIGATION_SMOOTH_PATHS_QUICK
         MENUITEM "Smooth Paths (Precise)",      IDM_NAVIGATION_SMOOTH_PATHS_PRECISE
+		MENUITEM "Follow leader"				IDM_NAVIGATION_FOLLOW_LEADER
     END
     POPUP "General Bot Info"
     BEGIN

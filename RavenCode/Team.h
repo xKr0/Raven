@@ -63,6 +63,11 @@ public:
 	static int leaderRed;
 
 	static int leaderBlue;
+
+	// Get list of bot for each team
+	static std::list<Raven_Bot*> getTeam(int team, std::list<Raven_Bot*> mBots);
+
+	static Raven_Bot* getTeamLeader(int team, std::list<Raven_Bot*> mBots);
 };
 
 #endif // TEAM

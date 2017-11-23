@@ -110,6 +110,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
         CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_GOAL_Q, UserOptions->m_bShowGoalsOfSelectedBot);
         CheckMenuItemAppropriately(hwnd, IDM_NAVIGATION_SHOW_INDICES, UserOptions->m_bShowNodeIndices);
         CheckMenuItemAppropriately(hwnd, IDM_BOTS_SHOW_SENSED, UserOptions->m_bShowOpponentsSensedBySelectedBot);
+		CheckMenuItemAppropriately(hwnd, IDM_NAVIGATION_FOLLOW_LEADER, UserOptions->m_bFollowLeader);
 
       }
 
@@ -305,6 +306,11 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
         CheckMenuItemAppropriately(hwnd, IDM_NAVIGATION_SMOOTH_PATHS_PRECISE, UserOptions->m_bSmoothPathsPrecise);
 
         break;
+
+	  case IDM_NAVIGATION_FOLLOW_LEADER:
+
+		  UserOptions->m_bFollowLeader = !UserOptions->m_bFollowLeader;
+		  CheckMenuItemAppropriately(hwnd, IDM_NAVIGATION_FOLLOW_LEADER, UserOptions->m_bFollowLeader);
 
       case IDM_BOTS_SHOW_IDS:
 

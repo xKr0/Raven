@@ -105,6 +105,10 @@ void Raven_Game::Clear()
 
 }
 
+
+
+
+
 //-------------------------------- Update -------------------------------------
 //
 //  calls the update function of each entity
@@ -217,6 +221,21 @@ void Raven_Game::Update()
 		  m_pSelectedBot=NULL;
 	  }
   }
+
+  if (isTeamOn)
+  {
+	  std::list<Raven_Bot*> TeamRedbot = Team::getTeam(0, m_Bots);
+	  std::list<Raven_Bot*> TeamBluebot = Team::getTeam(1, m_Bots);
+	  int nbBot = TeamRedbot.size();
+	  std::list<Raven_Bot*>::iterator curBot2 = TeamRedbot.begin();
+	  for (curBot2; curBot2 != TeamRedbot.end(); ++curBot2)
+	  {
+		  if (!((*curBot2)->isLeader()))
+		  {
+			  (*curBot2)->GetSteering()->OffsetPursuitOn(TeamBluebot.front(), Vector2D(0, 10));
+		  }
+	  }
+  }
 }
 
 
@@ -279,6 +298,11 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 	// if there is the team management On
 	if (isTeamOn) {
 		// we check in which team we have to add the bot
+		/*if (UserOptions->m_bFollowLeader)
+		{
+				rb->GetSteering()->OffsetPursuitOn(leader, Vector2D(0, 10));
+			
+		}*/
 		if (Team::nbBlue >= Team::nbRed) { 
 			rb->setTeam(Team::red); 
 			debug_con << "New player for Team Red : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";

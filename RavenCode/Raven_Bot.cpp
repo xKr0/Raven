@@ -625,3 +625,16 @@ void Raven_Bot::Lead()
 {
 	m_leader = true;
 }
+
+bool Raven_Bot::isLeader()
+{
+	if (m_leader = true)
+	{
+		return true;
+	}
+
+	else
+	{
+		return false;
+	}
+}

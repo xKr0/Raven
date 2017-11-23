@@ -47,6 +47,7 @@ public:
 
   bool m_bSmoothPathsQuick;
   bool m_bSmoothPathsPrecise;
+  bool m_bFollowLeader;
 
   bool m_bShowBotIDs;
 

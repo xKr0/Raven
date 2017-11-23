@@ -207,6 +207,8 @@ public:
   //given positions without bumping into any walls
   bool          canWalkBetween(Vector2D from, Vector2D to)const;
 
+  bool isLeader();
+
   //returns true if there is space enough to step in the indicated direction
   //If true PositionOfStep will be assigned the offset position
   bool          canStepLeft(Vector2D& PositionOfStep)const;

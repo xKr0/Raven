@@ -57,6 +57,7 @@ private:
     wander             = 0x00010,
     separation         = 0x00040,
     wall_avoidance     = 0x00200,
+	offset_pursuit = 0x10000,
   };
 
 private:
@@ -78,6 +79,8 @@ private:
 
   //the current target
   Vector2D    m_vTarget;
+
+  Vector2D     m_vOffset;
 
 
   //a vertex buffer to contain the feelers rqd for wall avoidance  
@@ -162,6 +165,10 @@ private:
   
   Vector2D Separation(const std::list<Raven_Bot*> &agents);
 
+  //this behavior maintains a position, in the direction of offset
+  //from the target vehicle
+  Vector2D OffsetPursuit(const Raven_Bot* agent, const Vector2D offset);
+
 
     /* .......................................................
 
@@ -208,6 +215,7 @@ public:
   void WanderOn(){m_iFlags |= wander;}
   void SeparationOn(){m_iFlags |= separation;}
   void WallAvoidanceOn(){m_iFlags |= wall_avoidance;}
+  void OffsetPursuitOn(Raven_Bot* v1, const Vector2D offset) { m_iFlags |= offset_pursuit; m_vOffset = offset; m_pTargetAgent1 = v1; }
 
   void SeekOff()  {if(On(seek))   m_iFlags ^=seek;}
   void ArriveOff(){if(On(arrive)) m_iFlags ^=arrive;}
