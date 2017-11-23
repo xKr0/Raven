@@ -221,21 +221,23 @@ void Raven_Game::Update()
 		  m_pSelectedBot=NULL;
 	  }
   }
-
-  if (isTeamOn)
+  
+ /* if (isTeamOn)
   {
-	  std::list<Raven_Bot*> TeamRedbot = Team::getTeam(0, m_Bots);
-	  std::list<Raven_Bot*> TeamBluebot = Team::getTeam(1, m_Bots);
+	  std::list<Raven_Bot*> TeamRedbot = Team::getTeam(1, m_Bots);
+	  std::list<Raven_Bot*> TeamBluebot = Team::getTeam(0, m_Bots);
 	  int nbBot = TeamRedbot.size();
 	  std::list<Raven_Bot*>::iterator curBot2 = TeamRedbot.begin();
 	  for (curBot2; curBot2 != TeamRedbot.end(); ++curBot2)
 	  {
 		  if (!((*curBot2)->isLeader()))
 		  {
-			  (*curBot2)->GetSteering()->OffsetPursuitOn(TeamBluebot.front(), Vector2D(0, 10));
+			  (*curBot2)->GetSteering()->OffsetPursuitOn(TeamRedbot.front(), Vector2D(0, 10));
 		  }
 	  }
-  }
+  }*/
+
+
 }
 
 

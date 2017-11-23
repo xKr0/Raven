@@ -450,6 +450,7 @@ void Raven_Bot::ChangeWeapon(unsigned int type)
 void Raven_Bot::FireWeapon(Vector2D pos)
 {
   m_pWeaponSys->ShootAt(pos);
+
 }
 
 //----------------- CalculateExpectedTimeToReachPosition ----------------------
