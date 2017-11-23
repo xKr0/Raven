@@ -450,7 +450,12 @@ void Raven_Bot::ChangeWeapon(unsigned int type)
 void Raven_Bot::FireWeapon(Vector2D pos)
 {
   m_pWeaponSys->ShootAt(pos);
-
+  /*Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
+	  SENDER_ID_IRRELEVANT,
+	  msg.Sender,
+	  Msg_YouGotMeYouSOB,
+	  NO_ADDITIONAL_INFO);
+	  */
 }
 
 //----------------- CalculateExpectedTimeToReachPosition ----------------------
@@ -677,11 +682,10 @@ void Raven_Bot::Lead()
 
 bool Raven_Bot::isLeader()
 {
-	if (m_leader = true)
+	if (m_leader == true)
 	{
 		return true;
 	}
-
 	else
 	{
 		return false;
