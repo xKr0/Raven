@@ -139,6 +139,10 @@ public:
   //door of the specified ID
   Vector2D GetPosOfClosestSwitch(Vector2D botPos, unsigned int doorID)const;
 
+  std::list<Raven_Bot*> getTeam(int team);
+
+  Raven_Bot * getTeamLeader(int team);
+
   //given a position on the map this method returns the bot found with its
   //bounding radius of that position.If there is no bot at the position the
   //method returns NULL

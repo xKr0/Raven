@@ -123,33 +123,4 @@ void Team::increasedBlueScore() {
 	debug_con << "Team Blue scores ! Red : " << Team::scoreRed << "pts vs Blue : " << Team::scoreBlue << "pts" << "";
 }
 
-// Get list of each bot of the team
-
-std::list<Raven_Bot*> Team::getTeam(int team, std::list<Raven_Bot*> mBots)
-{
-	std::list<Raven_Bot*> botTeam;
-	// for each bot 
-	std::list<Raven_Bot*>::iterator curBot = mBots.begin();
-	for (curBot; curBot != mBots.end(); ++curBot)
-	{
-		if ((*curBot)->getTag() == team)
-		{
-			botTeam.push_back((*curBot)->GetTargetBot());
-		}
-	}
-	return botTeam;
-}
-
-Raven_Bot* Team::getTeamLeader(int team, std::list<Raven_Bot*> mBots)
-{
-	std::list<Raven_Bot*>::iterator curBott = mBots.begin();
-	for (curBott; curBott != mBots.end(); ++curBott)
-	{
-		if ((*curBott)->getTag() == team && (*curBott)->isLeader())
-		{
-			return (*curBott);
-		}
-	}
-}
-
 
