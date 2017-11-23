@@ -227,6 +227,7 @@ void Raven_Bot::UpdateMovement()
 			
 		}
 	}
+
   //calculate the combined steering force
   Vector2D force = m_pSteering->Calculate();
 

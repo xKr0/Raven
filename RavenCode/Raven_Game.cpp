@@ -221,21 +221,6 @@ void Raven_Game::Update()
 		  m_pSelectedBot=NULL;
 	  }
   }
-
-  if (isTeamOn)
-  {
-	  std::list<Raven_Bot*> TeamRedbot = Team::getTeam(Team::red, m_Bots);
-	  std::list<Raven_Bot*> TeamBluebot = Team::getTeam(Team::blue, m_Bots);
-	  int nbBot = TeamRedbot.size();
-	  std::list<Raven_Bot*>::iterator curBot = TeamRedbot.begin();
-	  for (curBot; curBot != TeamRedbot.end(); ++curBot)
-	  {
-		  if (!(*curBot)->isLeader())
-		  {
-			  (*curBot)->GetSteering()->OffsetPursuitOn(TeamRedbot.front(), Vector2D(0, 10));
-		  }
-	  }
-  }
 }
 
 
@@ -298,11 +283,6 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 	// if there is the team management On
 	if (isTeamOn) {
 		// we check in which team we have to add the bot
-		/*if (UserOptions->m_bFollowLeader)
-		{
-				rb->GetSteering()->OffsetPursuitOn(leader, Vector2D(0, 10));
-			
-		}*/
 		if (Team::nbBlue >= Team::nbRed) { 
 			rb->setTeam(Team::red); 
 			debug_con << "New player for Team Red : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";
@@ -313,9 +293,16 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 		}
 	}
 
-    //switch the default steering behaviors on
-    rb->GetSteering()->WallAvoidanceOn();
-    rb->GetSteering()->SeparationOn();
+	if (UserOptions->m_bFollowLeader && isTeamOn)
+	{
+		Raven_Bot* leader = getTeamLeader(rb->getTag());
+		rb->GetSteering()->OffsetPursuitOn(leader, Vector2D(0, 10));
+	}
+	else {
+		//switch the default steering behaviors on
+		rb->GetSteering()->WallAvoidanceOn();
+		rb->GetSteering()->SeparationOn();
+	}
 
     m_Bots.push_back(rb);
 
@@ -777,7 +764,34 @@ Raven_Game::GetPosOfClosestSwitch(Vector2D botPos, unsigned int doorID)const
   return closest;
 }
 
+// Get list of each bot of the team
 
+std::list<Raven_Bot*> Raven_Game::getTeam(int team)
+{
+	std::list<Raven_Bot*> botTeam;
+	// for each bot 
+	std::list<Raven_Bot*>::iterator curBot = m_Bots.begin();
+	for (curBot; curBot != m_Bots.end(); ++curBot)
+	{
+		if ((*curBot)->getTag() == team)
+		{
+			botTeam.push_back((*curBot)->GetTargetBot());
+		}
+	}
+	return botTeam;
+}
+
+Raven_Bot* Raven_Game::getTeamLeader(int tag)
+{
+	std::list<Raven_Bot*>::iterator curBott = m_Bots.begin();
+	for (curBott; curBott != m_Bots.end(); ++curBott)
+	{
+		if ((*curBott)->getTag() == tag && (*curBott)->isLeader())
+		{
+			return (*curBott);
+		}
+	}
+}
 
 
     
