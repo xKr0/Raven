@@ -676,11 +676,10 @@ void Raven_Bot::Lead()
 
 bool Raven_Bot::isLeader()
 {
-	if (m_leader = true)
+	if (m_leader == true)
 	{
 		return true;
 	}
-
 	else
 	{
 		return false;
