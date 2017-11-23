@@ -1,7 +1,8 @@
 #pragma once
-#include "Team.h"
+#include "../Team.h"
 #include "Triggers/Trigger_Respawning.h"
-#include "Raven_WeaponSystem.h"
+#include "../Raven_WeaponSystem.h"
+#include <mutex>          // std::mutex
 
 class Raven_Bot;
 
@@ -18,6 +19,8 @@ private:
 
 	// list of the weapon type in the cache
 	std::list<int> weaponsInCache;
+
+	std::mutex lockWeaponCache;
 
 public:
 
@@ -40,4 +43,6 @@ public:
 	};
 
 	void SetCacheActive() { SetActive(); };
+
+	bool isEmpty();
 };

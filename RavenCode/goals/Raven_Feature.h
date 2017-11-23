@@ -1,5 +1,7 @@
 #ifndef RAVEN_FEATURE_H
 #define RAVEN_FEATURE_H
+
+#include "../Triggers/Trigger_TeamWeaponCache.h"
 //-----------------------------------------------------------------------------
 //
 //  Name:   Raven_Feature.h
@@ -16,6 +18,8 @@ class Raven_Bot;
 class Raven_Feature
 {
 public:
+
+	static double DistanceToCache(Raven_Bot* pBot, Trigger_TeamWeaponCache* cache);
 
   //returns a value between 0 and 1 based on the bot's health. The better
   //the health, the higher the rating

@@ -24,7 +24,8 @@ enum
   goal_hunt_target,
   goal_strafe,
   goal_adjust_range,
-  goal_say_phrase
+  goal_say_phrase,
+  goal_go_to_cache
   
 };
 

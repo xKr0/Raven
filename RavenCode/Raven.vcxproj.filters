@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Game">
@@ -271,11 +271,17 @@
     <ClCompile Include="Team.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Trigger_TeamWeaponCache.cpp">
-      <Filter>AI\Triggers</Filter>
-    </ClCompile>
     <ClCompile Include="goals\Goal_DodgeOnce.cpp">
       <Filter>AI\goals\atomic</Filter>
+    </ClCompile>
+    <ClCompile Include="goals\Goal_GoToCache.cpp">
+      <Filter>AI\goals\composite</Filter>
+    </ClCompile>
+    <ClCompile Include="goals\GoToCacheGoal_Evaluator.cpp">
+      <Filter>AI\goals\goal evaluation</Filter>
+    </ClCompile>
+    <ClCompile Include="triggers\Trigger_TeamWeaponCache.cpp">
+      <Filter>AI\Triggers</Filter>
     </ClCompile>
     <ClCompile Include="armory\Projectile_knife.cpp">
       <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
@@ -388,9 +394,6 @@
       <Filter>AI\goals\composite</Filter>
     </ClInclude>
     <ClInclude Include="goals\Goal_FollowPath.h">
-      <Filter>AI\goals\composite</Filter>
-    </ClInclude>
-    <ClInclude Include="goals\Goal_GetItem.h">
       <Filter>AI\goals\composite</Filter>
     </ClInclude>
     <ClInclude Include="goals\Goal_HuntTarget.h">
@@ -624,17 +627,26 @@
     <ClInclude Include="Team.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Trigger_TeamWeaponCache.h">
-      <Filter>AI\Triggers</Filter>
-    </ClInclude>
     <ClInclude Include="goals\Goal_DodgeOnce.h">
       <Filter>AI\goals\atomic</Filter>
     </ClInclude>
-    <ClInclude Include="armory\Projectile_knife.h">
-      <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
+    <ClInclude Include="goals\Goal_GoToCache.h">
+      <Filter>AI\goals\composite</Filter>
+    </ClInclude>
+    <ClInclude Include="goals\Goal_GetItem.h">
+      <Filter>AI\goals\composite</Filter>
+    </ClInclude>
+    <ClInclude Include="goals\GoToCacheGoal_Evaluator.h">
+      <Filter>AI\goals\goal evaluation</Filter>
+    </ClInclude>
+    <ClInclude Include="triggers\Trigger_TeamWeaponCache.h">
+      <Filter>AI\Triggers</Filter>
     </ClInclude>
     <ClInclude Include="armory\Weapon_Knife.h">
       <Filter>Game\weapons &amp; projectiles\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="armory\Projectile_knife.h">
+      <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

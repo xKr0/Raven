@@ -179,6 +179,54 @@ void Raven_Bot::Update()
 //-----------------------------------------------------------------------------
 void Raven_Bot::UpdateMovement()
 {
+	if (m_bPossessed == true)
+	{
+		if (IS_KEY_PRESSED('W') || IS_KEY_PRESSED('A') || IS_KEY_PRESSED('S') || IS_KEY_PRESSED('D'))
+		{
+			double X = 0, Y = 0;
+			//Le nombre a pas l'air d'avoir d'importance,
+			//tant qu'il indique un direction
+			if (IS_KEY_PRESSED('D') && IS_KEY_PRESSED('W'))
+			{
+				X = 0.1;
+				Y = -0.1;
+			}
+			else if (IS_KEY_PRESSED('D') && IS_KEY_PRESSED('S'))
+			{
+				X = 0.1;
+				Y = 0.1;
+			}
+			else if (IS_KEY_PRESSED('A') && IS_KEY_PRESSED('W'))
+			{
+				X = -0.1;
+				Y = -0.1;
+			}
+			else if (IS_KEY_PRESSED('A') && IS_KEY_PRESSED('S'))
+			{
+				X = -0.1;
+				Y = 0.1;
+			}
+			else if (IS_KEY_PRESSED('D')) // Droite
+				X = 0.1;
+			else if (IS_KEY_PRESSED('A')) // Gauche
+				X = -0.1;
+			else if (IS_KEY_PRESSED('S')) // Bas
+				Y = 0.1;
+			else if (IS_KEY_PRESSED('W')) // Haut
+				Y = -0.1;
+			
+			static const double StepDistance = BRadius() * 2;
+			Vector2D PlayerMovement(X, Y);
+			PlayerMovement = Pos() + PlayerMovement *StepDistance;
+			GetSteering()->SetTarget(PlayerMovement);
+			GetSteering()->SeekOn();
+		}
+		else
+		{
+			GetSteering()->SeekOff();
+			
+		}
+	}
   //calculate the combined steering force
   Vector2D force = m_pSteering->Calculate();
 

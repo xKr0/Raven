@@ -87,6 +87,10 @@ std::string GoalTypeToString::Convert(int gt)
 
     return "say_phrase";
 
+  case goal_go_to_cache:
+
+	  return "go_to_cache";
+
   default:
 
     return "UNKNOWN GOAL TYPE!";

@@ -97,7 +97,6 @@ public:
   //trigger found
   double      GetCostToClosestItem(unsigned int GiverType)const;
 
-  
   //the path manager calls this to iterate once though the search cycle
   //of the currently assigned search algorithm. When a search is terminated
   //the method messages the owner with either the msg_NoPathAvailable or
