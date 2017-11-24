@@ -11,6 +11,7 @@
 #include "Raven_UserOptions.h"
 #include "2D/transformations.h"
 #include "fuzzy/FuzzyOperators.h"
+#include <vector>
 
 
 
@@ -202,16 +203,24 @@ void Raven_WeaponSystem::ChangeWeapon(unsigned int type)
 //-----------------------------------------------------------------------------
 void Raven_WeaponSystem::TakeAimAndShoot()const
 {
+
+  double isShootbale = m_pOwner->GetTargetSys()->isTargetShootable();
+  double isNotOutOfViewForTooLong = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenOutOfView();
+  double isFacingTheTarget = false;
+  double isStillThere = false;
+  double shoot = false;
+
   //aim the weapon only if the current target is shootable or if it has only
   //very recently gone out of view (this latter condition is to ensure the 
   //weapon is aimed at the target even if it temporarily dodges behind a wall
   //or other cover)
-  if (m_pOwner->GetTargetSys()->isTargetShootable() ||
-      (m_pOwner->GetTargetSys()->GetTimeTargetHasBeenOutOfView() < 
-       m_dAimPersistance) )
+  if ( isShootbale || (isNotOutOfViewForTooLong < m_dAimPersistance))
   {
     //the position the weapon will be aimed at
     Vector2D AimingPos = m_pOwner->GetTargetBot()->Pos();
+	isFacingTheTarget = m_pOwner->RotateFacingTowardPosition(AimingPos);
+	isStillThere = (m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
+		m_dReactionTime);
     
     //if the current weapon is not an instant hit type gun the target position
     //must be adjusted to take into account the predicted movement of the 
@@ -224,14 +233,13 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
       //if the weapon is aimed correctly, there is line of sight between the
       //bot and the aiming position and it has been in view for a period longer
       //than the bot's reaction time, shoot the weapon
-      if ( m_pOwner->RotateFacingTowardPosition(AimingPos) &&
-           (m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
-            m_dReactionTime) &&
-           m_pOwner->hasLOSto(AimingPos) )
+	  isFacingTheTarget = m_pOwner->RotateFacingTowardPosition(AimingPos);
+      if ( isFacingTheTarget && isStillThere && m_pOwner->hasLOSto(AimingPos) )
       {
         AddNoiseToAim(AimingPos);
 
         GetCurrentWeapon()->ShootAt(AimingPos);
+		shoot = true;
       }
     }
 
@@ -240,16 +248,16 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
     {
       //if the weapon is aimed correctly and it has been in view for a period
       //longer than the bot's reaction time, shoot the weapon
-      if ( m_pOwner->RotateFacingTowardPosition(AimingPos) &&
-           (m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
-            m_dReactionTime) )
+      if (isFacingTheTarget && isStillThere)
       {
         AddNoiseToAim(AimingPos);
         
         GetCurrentWeapon()->ShootAt(AimingPos);
+		shoot = true;
       }
     }
 
+	
   }
   
   //no target to shoot at so rotate facing to be parallel with the bot's
@@ -258,6 +266,17 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
   {
     m_pOwner->RotateFacingTowardPosition(m_pOwner->Pos()+ m_pOwner->Heading());
   }
+
+  // we finally add the line to our file
+  std::vector<double> line = std::vector<double>(5);
+  line.push_back(isShootbale);
+  line.push_back(isNotOutOfViewForTooLong);
+  line.push_back(isFacingTheTarget);
+  line.push_back(isStillThere);
+  line.push_back(shoot);
+  // we write it in the file
+  DataFileNeuron::Get()->WriteVectorInFile(line);
+
 }
 
 //---------------------------- AddNoiseToAim ----------------------------------
