@@ -268,7 +268,7 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
   }
 
   // we finally add the line to our file
-  std::vector<double> line = std::vector<double>(5);
+  std::vector<double> line;
   line.push_back(isShootbale);
   line.push_back(isNotOutOfViewForTooLong);
   line.push_back(isFacingTheTarget);
