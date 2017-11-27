@@ -1,6 +1,6 @@
 #include "CNeuralNet.h"
 //#define DISPLAY_TO_CONSOLE "ON"
-//#define DISPLAY_DESIRED_VS_OBTAINED  "ON"
+#define DISPLAY_DESIRED_VS_OBTAINED  "ON"
 
 
 //*************************** methods for Neuron **********************
@@ -245,14 +245,16 @@ bool CNeuralNet::NetworkTrainingEpoch(vector<iovector> &SetIn,
     {
       //first calculate the error value
 #ifdef DISPLAY_DESIRED_VS_OBTAINED
-		cout << "Desired output: " << SetOut[vec][op] << " | " << "Neural Net output: " << outputs[op] << endl;
+		if ((vec % 1000 == 0) || (vec >= SetIn.size() - 1))
+			cout << "Desired output: " << SetOut[vec][op] << " | " << "Neural Net output: " << outputs[op] << endl;
 #endif
 
       double err = (SetOut[vec][op] - outputs[op]) * outputs[op]
                    * (1 - outputs[op]);    
 
 #ifdef DISPLAY_DESIRED_VS_OBTAINED
-	  cout << "Calculated error = " << err << endl;
+	  if ((vec % 1000 == 0) || (vec >= SetIn.size() - 1))
+		 cout << "Calculated error = " << err << endl;
 #endif
 
       //keep a record of the error value
@@ -460,7 +462,7 @@ bool CNeuralNet::Train(CData* data/*, HWND hwnd*/)
    //threshold
    while( m_dErrorSum > ERROR_THRESHOLD )
    {
-	   cout << m_dErrorSum << " | " << ERROR_THRESHOLD << endl;
+	   cout << m_dErrorSum << " | " << ERROR_THRESHOLD <<  "  epoch #" << m_iNumEpochs << endl;
      //return false if there are any problems
      if (!NetworkTrainingEpoch(SetIn, SetOut))
      {
