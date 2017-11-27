@@ -47,6 +47,8 @@
 
 #define NUM_HIDDEN_NEURONS  6
 
+#define MOMENTUM            0.9	//weight
+
 
 
 

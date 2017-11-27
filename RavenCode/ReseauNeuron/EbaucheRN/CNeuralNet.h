@@ -16,6 +16,7 @@
 #include <vector>
 #include <math.h>
 #include <windows.h>
+#include <fstream>
 
 #include "utils.h"
 #include "defines.h"
@@ -27,6 +28,10 @@ using namespace std;
 //define a type for an input or output vector (used in
 //the training method)
 typedef vector<double> iovector;
+
+
+
+
 
 
 
@@ -48,8 +53,14 @@ struct SNeuron
   //the error value
   double          m_dError;
 
+  // the previous timesteps weight update used
+	  //to add momentum
+	  vector<double>  m_vecPrevUpdate;
+
+  int m_iID;
+
 	//ctor
-	SNeuron(int NumInputs);
+	SNeuron(int NumInputs, int NID);
 };
 
 
@@ -61,12 +72,14 @@ struct SNeuronLayer
 {
 	//the number of neurons in this layer
 	int					      m_iNumNeurons;
+	
+	int m_iLayerID;
 
 	//the layer of neurons
 	vector<SNeuron>		m_vecNeurons;
 
 	SNeuronLayer(int NumNeurons, 
-				       int NumInputsPerNeuron);
+				       int NumInputsPerNeuron, int IDofLayer);
 };
 
 
