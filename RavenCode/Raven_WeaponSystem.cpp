@@ -210,6 +210,42 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
   double isStillThere = false;
   double shoot = false;
 
+  bool isBrightBot = false; //temporaire pour passer la compilation
+
+  if (isBrightBot)
+  {
+	  Vector2D AimingPos;
+	  if (GetCurrentWeapon()->GetType() == type_rocket_launcher ||
+		  GetCurrentWeapon()->GetType() == type_blaster)
+			AimingPos = PredictFuturePositionOfTarget();
+	  else
+		  AimingPos = m_pOwner->GetTargetBot()->Pos();
+
+	  //AimingPosForRN = AimingPos.Normalize();	//pour obtenir une longeur de 1 (ou max 1)
+	  isFacingTheTarget = m_pOwner->RotateFacingTowardPosition(AimingPos);
+	  isStillThere = (m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
+		  m_dReactionTime);
+
+	  //Code Réseau Neurone
+	 
+		//Préparer input
+	  std::vector<double> line = { isShootbale, isNotOutOfViewForTooLong,
+								   isFacingTheTarget, isStillThere };
+	  bool RNoutput = false;
+
+		//Traiter output
+	  /**
+	  if (Bot->RN_Instance->Update(line) > 0.99)
+		  AddNoiseToAim(AimingPos);
+
+		  GetCurrentWeapon()->ShootAt(AimingPos);
+	  else
+		   m_pOwner->RotateFacingTowardPosition(m_pOwner->Pos() + m_pOwner->Heading());
+	  /**/
+	  //Fin Code RN
+		 
+  }
+
   //aim the weapon only if the current target is shootable or if it has only
   //very recently gone out of view (this latter condition is to ensure the 
   //weapon is aimed at the target even if it temporarily dodges behind a wall
