@@ -225,6 +225,7 @@
     <ClCompile Include="goals\Goal_DodgeOnce.cpp" />
     <ClCompile Include="goals\Goal_GoToCache.cpp" />
     <ClCompile Include="goals\GoToCacheGoal_Evaluator.cpp" />
+    <ClCompile Include="Goal_FollowLeader.cpp" />
     <ClCompile Include="main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -550,6 +551,7 @@
     <ClInclude Include="goals\Goal_GetItem.h" />
     <ClInclude Include="goals\Goal_GoToCache.h" />
     <ClInclude Include="goals\GoToCacheGoal_Evaluator.h" />
+    <ClInclude Include="Goal_FollowLeader.h" />
     <ClInclude Include="Raven_Bot.h" />
     <ClInclude Include="Raven_Game.h" />
     <ClInclude Include="Raven_Map.h" />

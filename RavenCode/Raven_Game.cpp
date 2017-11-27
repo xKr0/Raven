@@ -289,7 +289,7 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 			debug_con << "New player for Team Red : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";
 		}
 		else {
-			rb->setTeam(Team::blue);
+			rb->setTeam(Team::red);
 			debug_con << "New player for Team Blue : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";
 		}
 	}
@@ -297,7 +297,10 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 	if (UserOptions->m_bFollowLeader && isTeamOn)
 	{
 		Raven_Bot* leader = getTeamLeader(rb->getTag());
+		//rb->GetBrain()->RemoveAllSubgoals();
+		rb->GetSteering()->WallAvoidanceOn();
 		rb->GetSteering()->OffsetPursuitOn(leader, Vector2D(0, 10));
+		//leader->TakePossession();
 	}
 	else {
 		//switch the default steering behaviors on

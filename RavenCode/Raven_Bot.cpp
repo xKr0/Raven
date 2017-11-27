@@ -228,6 +228,12 @@ void Raven_Bot::UpdateMovement()
 		}
 	}
 
+	if (!(m_team == Team::none))
+	{
+		debug_con << "OKKKKK";
+		//()->RemoveAllSubgoals();
+	}
+
   //calculate the combined steering force
   Vector2D force = m_pSteering->Calculate();
 
@@ -559,10 +565,12 @@ void Raven_Bot::Render()
   if (isDead() || isSpawning()) return;
 
   if (m_team == Team::blue) {
-	  gdi->BluePen();
+		  gdi->BluePen();
+
   }
   else if (m_team == Team::red) {
-	  gdi->RedPen();
+		  gdi->RedPen();
+	  
   }
   else {
 	  gdi->BlackPen();

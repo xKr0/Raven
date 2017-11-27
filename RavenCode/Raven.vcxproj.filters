@@ -289,6 +289,9 @@
     <ClCompile Include="armory\Weapon_Knife.cpp">
       <Filter>Game\weapons &amp; projectiles\weapons</Filter>
     </ClCompile>
+    <ClCompile Include="Goal_FollowLeader.cpp">
+      <Filter>AI\goals\atomic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -647,6 +650,9 @@
     </ClInclude>
     <ClInclude Include="armory\Projectile_knife.h">
       <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Goal_FollowLeader.h">
+      <Filter>AI\goals\atomic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

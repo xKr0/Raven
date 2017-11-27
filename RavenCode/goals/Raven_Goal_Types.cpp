@@ -71,6 +71,10 @@ std::string GoalTypeToString::Convert(int gt)
 
     return "attack_target";
 
+  case goal_follow_leader:
+
+	  return "follow_leader";
+
   case goal_hunt_target:
 
     return "hunt_target";
