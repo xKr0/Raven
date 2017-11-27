@@ -22,3 +22,12 @@ Tirer de CData.cpp:
 //	Yadayada calcul d'erreur, continue d'ajuster les poids jusqu'à ce que
 //	l'erreur soit dessendu à 0.003 (Il est tard)
 //------------------------------------------------------------------------
+
+UPDATE 27/11/17
+
+Ajout du Momentum au calcul des poids (de Recognizeit 2.0), ajout options d'affichage de donnés à l'écrans:
+//#define DISPLAY_DESIRED_VS_OBTAINED  "ON"
+À décommenter pour afficher l'output désirer comparer à l'output donné par le réseau de neurone.
+
+//#define DISPLAY_TO_CONSOLE "ON"
+À décommenter pour afficher des informations tel que l'output, l'erreur, les poids et etc par neurones, par couches. (ATTENTION, beaucoup de donnés à afficher, ralenti le calcul)
