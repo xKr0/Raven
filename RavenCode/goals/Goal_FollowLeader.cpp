@@ -1,8 +1,8 @@
 #include "Goal_FollowLeader.h"
-#include "Raven_Bot.h"
-#include "Raven_SteeringBehaviors.h"
+#include "../Raven_Bot.h"
+#include "../Raven_SteeringBehaviors.h"
 #include "time/CrudeTimer.h"
-#include "navigation/Raven_PathPlanner.h"
+#include "../navigation/Raven_PathPlanner.h"
 #include "misc/cgdi.h"
 
 
@@ -113,3 +113,6 @@ void Goal_FollowLeader::Render()
 		gdi->BlackPen();
 		gdi->Circle(m_Leader->Pos(), 3);
 	}
+}
+
+

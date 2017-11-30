@@ -18,6 +18,7 @@
 
 #include "goals/Raven_Goal_Types.h"
 #include "goals/Goal_Think.h"
+#include "Goal_FollowLeader.h"
 
 
 #include "Debug/DebugConsole.h"
@@ -73,7 +74,6 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
 
   //create the goal queue
   m_pBrain = new Goal_Think(this);
-
   //create the targeting system
   m_pTargSys = new Raven_TargetingSystem(this);
 

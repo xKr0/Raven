@@ -5,6 +5,7 @@
 #include "../Raven_Map.h"
 #include "Messaging/Telegram.h"
 #include "..\Raven_Messages.h"
+#include "../Goal_FollowLeader.h"
 
 #include "Goal_SeekToPosition.h"
 #include "Goal_FollowPath.h"
@@ -31,11 +32,13 @@ void Goal_Explore::Activate()
 
   //and request a path to that position
   m_pOwner->GetPathPlanner()->RequestPathToPosition(m_CurrentDestination);
+  //m_pOwner->GetPathPlanner()->RequestPathToPosition(leader->Pos());
 
   //the bot may have to wait a few update cycles before a path is calculated
   //so for appearances sake it simple ARRIVES at the destination until a path
   //has been found
   AddSubgoal(new Goal_SeekToPosition(m_pOwner, m_CurrentDestination));
+  //AddSubgoal(new Goal_FollowLeader(m_pOwner, leader));
 }
 
 //------------------------------ Process -------------------------------------
@@ -69,8 +72,9 @@ bool Goal_Explore::HandleMessage(const Telegram& msg)
       //clear any existing goals
       RemoveAllSubgoals();
 
-      AddSubgoal(new Goal_FollowPath(m_pOwner,
-                                     m_pOwner->GetPathPlanner()->GetPath()));
+      //AddSubgoal(new Goal_FollowPath(m_pOwner,
+                                    // m_pOwner->GetPathPlanner()->GetPath()));
+	  AddSubgoal(new Goal_FollowLeader(m_pOwner, leader));
 
       return true; //msg handled
 

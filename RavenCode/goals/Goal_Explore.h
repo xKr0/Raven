@@ -15,6 +15,8 @@ private:
   
   Vector2D  m_CurrentDestination;
 
+  Raven_Bot* leader;
+
   //set to true when the destination for the exploration has been established
   bool      m_bDestinationIsSet;
 

@@ -294,7 +294,7 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 		}
 	}
 
-	if (UserOptions->m_bFollowLeader && isTeamOn)
+	/*if (UserOptions->m_bFollowLeader && isTeamOn)
 	{
 		Raven_Bot* leader = getTeamLeader(rb->getTag());
 		//rb->GetBrain()->RemoveAllSubgoals();
@@ -306,7 +306,7 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 		//switch the default steering behaviors on
 		rb->GetSteering()->WallAvoidanceOn();
 		rb->GetSteering()->SeparationOn();
-	}
+	}*/
 
     m_Bots.push_back(rb);
 

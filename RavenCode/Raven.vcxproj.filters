@@ -148,12 +148,6 @@
     <ClCompile Include="goals\Goal_AttackTarget.cpp">
       <Filter>AI\goals\composite</Filter>
     </ClCompile>
-    <ClCompile Include="goals\Goal_Explore.cpp">
-      <Filter>AI\goals\composite</Filter>
-    </ClCompile>
-    <ClCompile Include="goals\Goal_FollowPath.cpp">
-      <Filter>AI\goals\composite</Filter>
-    </ClCompile>
     <ClCompile Include="goals\Goal_GetItem.cpp">
       <Filter>AI\goals\composite</Filter>
     </ClCompile>
@@ -289,8 +283,14 @@
     <ClCompile Include="armory\Weapon_Knife.cpp">
       <Filter>Game\weapons &amp; projectiles\weapons</Filter>
     </ClCompile>
-    <ClCompile Include="Goal_FollowLeader.cpp">
-      <Filter>AI\goals\atomic</Filter>
+    <ClCompile Include="FollowLeader_Evaluator.cpp">
+      <Filter>AI\goals\goal evaluation</Filter>
+    </ClCompile>
+    <ClCompile Include="goals\Goal_FollowPath.cpp">
+      <Filter>AI\goals\composite</Filter>
+    </ClCompile>
+    <ClCompile Include="goals\Goal_FollowLeader.cpp">
+      <Filter>AI\goals\composite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -391,9 +391,6 @@
       <Filter>AI\goals\composite</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\Goals\Goal_Composite.h">
-      <Filter>AI\goals\composite</Filter>
-    </ClInclude>
-    <ClInclude Include="goals\Goal_Explore.h">
       <Filter>AI\goals\composite</Filter>
     </ClInclude>
     <ClInclude Include="goals\Goal_FollowPath.h">
@@ -651,8 +648,11 @@
     <ClInclude Include="armory\Projectile_knife.h">
       <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
     </ClInclude>
-    <ClInclude Include="Goal_FollowLeader.h">
-      <Filter>AI\goals\atomic</Filter>
+    <ClInclude Include="FollowLeader_Evaluator.h">
+      <Filter>AI\goals\goal evaluation</Filter>
+    </ClInclude>
+    <ClInclude Include="goals\Goal_FollowLeader.h">
+      <Filter>AI\goals\composite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
