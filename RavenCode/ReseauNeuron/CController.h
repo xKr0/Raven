@@ -18,7 +18,7 @@
 #include <windows.h>
 #include <iomanip>
 
-#include "SVector2D.h"
+//#include "SVector2D.h"
 #include "defines.h"
 #include "CNeuralNet.h"
 #include "CData.h"
