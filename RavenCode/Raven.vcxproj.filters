@@ -292,6 +292,18 @@
     <ClCompile Include="DataFileNeuron.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="ReseauNeuron\CController.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ReseauNeuron\CData.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ReseauNeuron\CNeuralNet.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ReseauNeuron\utils.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -654,6 +666,12 @@
     <ClInclude Include="DataFileNeuron.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="ReseauNeuron\CController.h" />
+    <ClInclude Include="ReseauNeuron\CData.h" />
+    <ClInclude Include="ReseauNeuron\CNeuralNet.h" />
+    <ClInclude Include="ReseauNeuron\defines.h" />
+    <ClInclude Include="ReseauNeuron\utils.h" />
+    <ClInclude Include="ReseauNeuron\resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua">

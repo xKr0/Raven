@@ -481,6 +481,10 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="ReseauNeuron\CController.cpp" />
+    <ClCompile Include="ReseauNeuron\CData.cpp" />
+    <ClCompile Include="ReseauNeuron\CNeuralNet.cpp" />
+    <ClCompile Include="ReseauNeuron\utils.cpp" />
     <ClCompile Include="Team.cpp" />
     <ClCompile Include="triggers\Trigger_HealthGiver.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -580,6 +584,12 @@
     <ClInclude Include="Raven_Door.h" />
     <ClInclude Include="Raven_ObjectEnumerations.h" />
     <ClInclude Include="Raven_UserOptions.h" />
+    <ClInclude Include="ReseauNeuron\CController.h" />
+    <ClInclude Include="ReseauNeuron\CData.h" />
+    <ClInclude Include="ReseauNeuron\CNeuralNet.h" />
+    <ClInclude Include="ReseauNeuron\defines.h" />
+    <ClInclude Include="ReseauNeuron\resource.h" />
+    <ClInclude Include="ReseauNeuron\utils.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="goals\Raven_Goal_Types.h" />
     <ClInclude Include="goals\Goal_AdjustRange.h" />
