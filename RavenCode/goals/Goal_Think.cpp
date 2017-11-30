@@ -12,6 +12,7 @@
 #include "Raven_Goal_Types.h"
 #include "Goal_AttackTarget.h"
 #include "Goal_GoToCache.h"
+#include "Goal_FollowLeader.h"
 
 
 #include "GetWeaponGoal_Evaluator.h"
@@ -57,6 +58,9 @@ Goal_Think::Goal_Think(Raven_Bot* pBot):Goal_Composite<Raven_Bot>(pBot, goal_thi
 
   // evaluator for going to cache
   m_Evaluators.push_back(new GoToCacheGoal_Evaluator(CacheBias));
+
+  // evaluator for following the leader
+  m_Evaluators.push_back(new FollowLeader_Evaluator());
 }
 
 //----------------------------- dtor ------------------------------------------
@@ -187,6 +191,15 @@ void Goal_Think::AddGoal_GoToCache(Vector2D pos, Trigger_TeamWeaponCache* trigge
 		RemoveAllSubgoals();
 		AddSubgoal(new Goal_GoToCache(m_pOwner, pos, trigger));
 	}	
+}
+
+void Goal_Think::AddGoal_FollowLeader()
+{
+	if (notPresent(goal_follow_leader))
+	{
+		RemoveAllSubgoals();
+		AddSubgoal(new Goal_FollowLeader());
+	}
 }
 
 //-------------------------- Queue Goals --------------------------------------
