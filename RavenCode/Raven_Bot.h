@@ -83,7 +83,12 @@ private:
   //each time this bot kills another this value is incremented
   int                                m_iScore;
 
+
+  // If the bot is the leader
   bool								 m_leader;
+
+  // pointer on the team's leader
+  Raven_Bot*						m_botLeader;
   
   //the direction the bot is facing (and therefore the direction of aim). 
   //Note that this may not be the same as the bot's heading, which always
@@ -149,6 +154,8 @@ public:
   void          ReduceHealth(unsigned int val);
   void          IncreaseHealth(unsigned int val);
   void          RestoreHealthToMaximum();
+  Raven_Bot* GetLeader() { return m_botLeader; }
+  void SetLeader(Raven_Bot* leader) { m_botLeader = leader; }
 
   int           Score()const{return m_iScore;}
   void          IncrementScore(){++m_iScore;}

@@ -18,7 +18,7 @@
 
 #include "goals/Raven_Goal_Types.h"
 #include "goals/Goal_Think.h"
-#include "Goal_FollowLeader.h"
+#include "goals/Goal_FollowLeader.h"
 
 
 #include "Debug/DebugConsole.h"
@@ -49,6 +49,7 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
                  m_bPossessed(false),
 				 m_team(Team::none),
 				 m_leader(false),
+				 m_botLeader(nullptr),
                  m_dFieldOfView(DegsToRads(script->GetDouble("Bot_FOV")))
            
 {
@@ -700,3 +701,5 @@ bool Raven_Bot::isLeader()
 		return false;
 	}
 }
+
+

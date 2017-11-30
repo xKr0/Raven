@@ -20,6 +20,7 @@
 #include "ExploreGoal_Evaluator.h"
 #include "AttackTargetGoal_Evaluator.h"
 #include "GoToCacheGoal_Evaluator.h"
+#include "FollowLeader_Evaluator.h"
 
 #include "debug/DebugConsole.h"
 
@@ -39,7 +40,7 @@ Goal_Think::Goal_Think(Raven_Bot* pBot):Goal_Composite<Raven_Bot>(pBot, goal_thi
   double KnifesBias = RandInRange(LowRangeOfBias, HighRangeOfBias);
   double ExploreBias = RandInRange(LowRangeOfBias, HighRangeOfBias);
   double AttackBias = RandInRange(LowRangeOfBias, HighRangeOfBias);
-
+  double LeaderBias = RandInRange(LowRangeOfBias, HighRangeOfBias);
   // for the go to cache goal
   double CacheBias = RandInRange(LowRangeOfBias, HighRangeOfBias);
 
@@ -60,7 +61,8 @@ Goal_Think::Goal_Think(Raven_Bot* pBot):Goal_Composite<Raven_Bot>(pBot, goal_thi
   m_Evaluators.push_back(new GoToCacheGoal_Evaluator(CacheBias));
 
   // evaluator for following the leader
-  m_Evaluators.push_back(new FollowLeader_Evaluator());
+  m_Evaluators.push_back(new FollowLeader_Evaluator(LeaderBias));
+
 }
 
 //----------------------------- dtor ------------------------------------------
@@ -193,12 +195,12 @@ void Goal_Think::AddGoal_GoToCache(Vector2D pos, Trigger_TeamWeaponCache* trigge
 	}	
 }
 
-void Goal_Think::AddGoal_FollowLeader()
+void Goal_Think::AddGoal_FollowLeader(Raven_Bot* leader, Raven_Bot* bot)
 {
 	if (notPresent(goal_follow_leader))
 	{
 		RemoveAllSubgoals();
-		AddSubgoal(new Goal_FollowLeader());
+		AddSubgoal(new Goal_FollowLeader(bot,leader));
 	}
 }
 

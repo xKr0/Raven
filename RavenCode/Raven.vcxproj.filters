@@ -169,9 +169,6 @@
     <ClCompile Include="goals\ExploreGoal_Evaluator.cpp">
       <Filter>AI\goals\goal evaluation</Filter>
     </ClCompile>
-    <ClCompile Include="goals\GetHealthGoal_Evaluator.cpp">
-      <Filter>AI\goals\goal evaluation</Filter>
-    </ClCompile>
     <ClCompile Include="goals\GetWeaponGoal_Evaluator.cpp">
       <Filter>AI\goals\goal evaluation</Filter>
     </ClCompile>
@@ -283,14 +280,14 @@
     <ClCompile Include="armory\Weapon_Knife.cpp">
       <Filter>Game\weapons &amp; projectiles\weapons</Filter>
     </ClCompile>
-    <ClCompile Include="FollowLeader_Evaluator.cpp">
-      <Filter>AI\goals\goal evaluation</Filter>
-    </ClCompile>
     <ClCompile Include="goals\Goal_FollowPath.cpp">
       <Filter>AI\goals\composite</Filter>
     </ClCompile>
     <ClCompile Include="goals\Goal_FollowLeader.cpp">
       <Filter>AI\goals\composite</Filter>
+    </ClCompile>
+    <ClCompile Include="goals\FollowLeader_Evaluator.cpp">
+      <Filter>AI\goals\goal evaluation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -648,11 +645,11 @@
     <ClInclude Include="armory\Projectile_knife.h">
       <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
     </ClInclude>
-    <ClInclude Include="FollowLeader_Evaluator.h">
-      <Filter>AI\goals\goal evaluation</Filter>
-    </ClInclude>
     <ClInclude Include="goals\Goal_FollowLeader.h">
       <Filter>AI\goals\composite</Filter>
+    </ClInclude>
+    <ClInclude Include="goals\FollowLeader_Evaluator.h">
+      <Filter>AI\goals\goal evaluation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

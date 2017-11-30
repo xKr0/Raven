@@ -222,7 +222,7 @@
   <ItemGroup>
     <ClCompile Include="armory\Projectile_knife.cpp" />
     <ClCompile Include="armory\Weapon_Knife.cpp" />
-    <ClCompile Include="FollowLeader_Evaluator.cpp" />
+    <ClCompile Include="goals\FollowLeader_Evaluator.cpp" />
     <ClCompile Include="goals\Goal_DodgeOnce.cpp" />
     <ClCompile Include="goals\Goal_FollowLeader.cpp" />
     <ClCompile Include="goals\Goal_GoToCache.cpp" />
@@ -378,11 +378,6 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ClCompile Include="goals\ExploreGoal_Evaluator.cpp">
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
-    <ClCompile Include="goals\GetHealthGoal_Evaluator.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -543,7 +538,7 @@
   <ItemGroup>
     <ClInclude Include="armory\Projectile_knife.h" />
     <ClInclude Include="armory\Weapon_Knife.h" />
-    <ClInclude Include="FollowLeader_Evaluator.h" />
+    <ClInclude Include="goals\FollowLeader_Evaluator.h" />
     <ClInclude Include="goals\Goal_DodgeOnce.h" />
     <ClInclude Include="goals\Goal_FollowLeader.h" />
     <ClInclude Include="goals\Goal_GetItem.h" />
