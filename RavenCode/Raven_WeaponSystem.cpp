@@ -208,110 +208,102 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
   double isNotOutOfViewForTooLong = m_pOwner->GetTargetSys()->GetTimeTargetHasBeenOutOfView();
   double isFacingTheTarget = false;
   double isStillThere = false;
+  bool   ReadyToShoot = false;
   double shoot = false;
 
-  bool isBrightBot = false; //temporaire pour passer la compilation
 
-  if (isBrightBot)
-  {
-	  Vector2D AimingPos;
-	  if (GetCurrentWeapon()->GetType() == type_rocket_launcher ||
-		  GetCurrentWeapon()->GetType() == type_blaster)
-			AimingPos = PredictFuturePositionOfTarget();
+
+	  //aim the weapon only if the current target is shootable or if it has only
+	  //very recently gone out of view (this latter condition is to ensure the 
+	  //weapon is aimed at the target even if it temporarily dodges behind a wall
+	  //or other cover)
+	  if (isShootbale || (isNotOutOfViewForTooLong < m_dAimPersistance))
+	  {
+		  //the position the weapon will be aimed at
+		  Vector2D AimingPos = m_pOwner->GetTargetBot()->Pos();
+		  isStillThere = (m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
+			  m_dReactionTime);
+
+		  //if the current weapon is not an instant hit type gun the target position
+		  //must be adjusted to take into account the predicted movement of the 
+		  //target
+		  if (GetCurrentWeapon()->GetType() == type_rocket_launcher ||
+			  GetCurrentWeapon()->GetType() == type_blaster)
+		  {
+			  AimingPos = PredictFuturePositionOfTarget();
+
+			  //if the weapon is aimed correctly, there is line of sight between the
+			  //bot and the aiming position and it has been in view for a period longer
+			  //than the bot's reaction time, shoot the weapon
+			  isFacingTheTarget = m_pOwner->RotateFacingTowardPosition(AimingPos);
+
+			  if (m_pOwner->isSmartBot()) 
+			  {
+				  std::vector<double> line = { isShootbale, isNotOutOfViewForTooLong,
+					  isFacingTheTarget, isStillThere };
+				  ReadyToShoot = (m_pOwner->GetNeuralNet()->Update(line)[0] > 0.9);
+			  }
+			  else
+			  {
+				  ReadyToShoot = (isFacingTheTarget && isShootbale);
+			  }
+
+			  if (ReadyToShoot && m_pOwner->hasLOSto(AimingPos))
+			  {
+				  AddNoiseToAim(AimingPos);
+
+				  GetCurrentWeapon()->ShootAt(AimingPos);
+				  shoot = true;
+			  }
+		  }
+
+		  //no need to predict movement, aim directly at target
+		  else
+		  {
+			  isFacingTheTarget = m_pOwner->RotateFacingTowardPosition(AimingPos);
+			  //if the weapon is aimed correctly and it has been in view for a period
+			  //longer than the bot's reaction time, shoot the weapon
+
+			  if (m_pOwner->isSmartBot())
+			  {
+				  std::vector<double> line = { isShootbale, isNotOutOfViewForTooLong,
+					  isFacingTheTarget, isStillThere };
+				  ReadyToShoot = (m_pOwner->GetNeuralNet()->Update(line)[0] > 0.9);
+			  }
+			  else
+			  {
+				  ReadyToShoot = (isFacingTheTarget && isShootbale);
+			  }
+
+			  if (ReadyToShoot)
+			  {
+				  AddNoiseToAim(AimingPos);
+
+				  GetCurrentWeapon()->ShootAt(AimingPos);
+				  shoot = true;
+			  }
+		  }
+
+
+	  }
+
+	  //no target to shoot at so rotate facing to be parallel with the bot's
+	  //heading direction
 	  else
-		  AimingPos = m_pOwner->GetTargetBot()->Pos();
+	  {
+		  m_pOwner->RotateFacingTowardPosition(m_pOwner->Pos() + m_pOwner->Heading());
+	  }
 
-	  //AimingPosForRN = AimingPos.Normalize();	//pour obtenir une longeur de 1 (ou max 1)
-	  isFacingTheTarget = m_pOwner->RotateFacingTowardPosition(AimingPos);
-	  isStillThere = (m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
-		  m_dReactionTime);
+	  // we finally add the line to our file
+	  std::vector<double> line;
+	  line.push_back(isShootbale);
+	  line.push_back(isNotOutOfViewForTooLong);
+	  line.push_back(isFacingTheTarget);
+	  line.push_back(isStillThere);
+	  line.push_back(shoot);
+	  // we write it in the file
+	  DataFileNeuron::Get()->WriteVectorInFile(line);
 
-	  //Code Réseau Neurone
-	 
-		//Préparer input
-	  std::vector<double> line = { isShootbale, isNotOutOfViewForTooLong,
-								   isFacingTheTarget, isStillThere };
-	  bool RNoutput = false;
-
-		//Traiter output
-	  /**
-	  if (Bot->RN_Instance->Update(line) > 0.99)
-		  AddNoiseToAim(AimingPos);
-
-		  GetCurrentWeapon()->ShootAt(AimingPos);
-	  else
-		   m_pOwner->RotateFacingTowardPosition(m_pOwner->Pos() + m_pOwner->Heading());
-	  /**/
-	  //Fin Code RN
-		 
-  }
-
-  //aim the weapon only if the current target is shootable or if it has only
-  //very recently gone out of view (this latter condition is to ensure the 
-  //weapon is aimed at the target even if it temporarily dodges behind a wall
-  //or other cover)
-  if ( isShootbale || (isNotOutOfViewForTooLong < m_dAimPersistance))
-  {
-    //the position the weapon will be aimed at
-    Vector2D AimingPos = m_pOwner->GetTargetBot()->Pos();
-	isFacingTheTarget = m_pOwner->RotateFacingTowardPosition(AimingPos);
-	isStillThere = (m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
-		m_dReactionTime);
-    
-    //if the current weapon is not an instant hit type gun the target position
-    //must be adjusted to take into account the predicted movement of the 
-    //target
-    if (GetCurrentWeapon()->GetType() == type_rocket_launcher ||
-        GetCurrentWeapon()->GetType() == type_blaster)
-    {
-      AimingPos = PredictFuturePositionOfTarget();
-
-      //if the weapon is aimed correctly, there is line of sight between the
-      //bot and the aiming position and it has been in view for a period longer
-      //than the bot's reaction time, shoot the weapon
-	  isFacingTheTarget = m_pOwner->RotateFacingTowardPosition(AimingPos);
-      if ( isFacingTheTarget && isStillThere && m_pOwner->hasLOSto(AimingPos) )
-      {
-        AddNoiseToAim(AimingPos);
-
-        GetCurrentWeapon()->ShootAt(AimingPos);
-		shoot = true;
-      }
-    }
-
-    //no need to predict movement, aim directly at target
-    else
-    {
-      //if the weapon is aimed correctly and it has been in view for a period
-      //longer than the bot's reaction time, shoot the weapon
-      if (isFacingTheTarget && isStillThere)
-      {
-        AddNoiseToAim(AimingPos);
-        
-        GetCurrentWeapon()->ShootAt(AimingPos);
-		shoot = true;
-      }
-    }
-
-	
-  }
-  
-  //no target to shoot at so rotate facing to be parallel with the bot's
-  //heading direction
-  else
-  {
-    m_pOwner->RotateFacingTowardPosition(m_pOwner->Pos()+ m_pOwner->Heading());
-  }
-
-  // we finally add the line to our file
-  std::vector<double> line;
-  line.push_back(isShootbale);
-  line.push_back(isNotOutOfViewForTooLong);
-  line.push_back(isFacingTheTarget);
-  line.push_back(isStillThere);
-  line.push_back(shoot);
-  // we write it in the file
-  DataFileNeuron::Get()->WriteVectorInFile(line);
 
 }
 

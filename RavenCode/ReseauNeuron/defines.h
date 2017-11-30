@@ -39,16 +39,25 @@
 #define BIAS                -1
 
 //the learning rate for the backprop.
-#define LEARNING_RATE       0.5
+#define LEARNING_RATE       0.2
 
 //when the total error is below this value the 
 //backprop stops training
 #define ERROR_THRESHOLD     0.003
 
+#define NUM_HIDDEN_LAYERS	1
+
+#define OUTPUT_LAYER NUM_HIDDEN_LAYERS
+
 #define NUM_HIDDEN_NEURONS  6
 
-#define MOMENTUM            0.9	//weight
+#define MOMENTUM            0.8	//weight
 
+//how much the input data is perturbed 
+#define MAX_NOISE_TO_ADD    0.8
+
+//use softmax or not
+#define SOFTMAX				0
 
 
 

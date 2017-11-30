@@ -17,6 +17,8 @@
 #include "misc/utils.h"
 #include "Raven_TargetingSystem.h"
 #include "Team.h"
+#include "./ReseauNeuron/CNeuralNet.h"
+#include "./ReseauNeuron/defines.h"
 
 
 class Raven_PathPlanner;
@@ -46,6 +48,9 @@ private:
 
   //this object handles the arbitration and processing of high level goals
   Goal_Think*                        m_pBrain;
+
+  //Instance du reseau de Neurone
+  CNeuralNet*						 m_pNeuronNetwork;
 
   //this is a class that acts as the bots sensory memory. Whenever this
   //bot sees or hears an opponent, a record of the event is updated in the 
@@ -161,6 +166,11 @@ public:
   void          SetSpawning(){m_Status = spawning;}
   void          SetDead(){m_Status = dead;}
   void          SetAlive(){m_Status = alive;}
+  void			SetReseauNeuron() { m_pNeuronNetwork = new CNeuralNet(NUM_ENTRIES,        //inputs
+																	  NUM_OUTPUTS,  //outputs, NUM_OUPUTS
+																	  NUM_HIDDEN_NEURONS,   //hidden
+																	  LEARNING_RATE,
+																	  SOFTMAX); }
 
   //returns a value indicating the time in seconds it will take the bot
   //to reach the given position at its current speed.
@@ -185,6 +195,10 @@ public:
   };
 
   Team::teamTag getTag() { return m_team; };
+
+  //method is et get NeuralNetwork
+  bool			isSmartBot() { return (m_pNeuronNetwork != NULL); }
+  CNeuralNet*	GetNeuralNet() { return m_pNeuronNetwork; }
 
   //spawns the bot at the given position
   void          Spawn(Vector2D pos);

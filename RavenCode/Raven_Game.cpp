@@ -306,6 +306,47 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
   }
 }
 
+void Raven_Game::AddNeuralBots(unsigned int NumBotsToAdd)
+{
+	while (NumBotsToAdd--)
+	{
+		//create a bot. (its position is irrelevant at this point because it will
+		//not be rendered until it is spawned)
+		Raven_Bot* rb = new Raven_Bot(this, Vector2D());
+
+		// if there is the team management On
+		if (isTeamOn) {
+			// we check in which team we have to add the bot
+			if (Team::nbBlue >= Team::nbRed) {
+				rb->setTeam(Team::red);
+				debug_con << "New player for Team Red : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";
+			}
+			else {
+				rb->setTeam(Team::blue);
+				debug_con << "New player for Team Blue : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";
+			}
+		}
+
+		
+		rb->SetReseauNeuron();
+		rb->GetNeuralNet();
+
+		//switch the default steering behaviors on
+		rb->GetSteering()->WallAvoidanceOn();
+		rb->GetSteering()->SeparationOn();
+
+		m_Bots.push_back(rb);
+
+		//register the bot with the entity manager
+		EntityMgr->RegisterEntity(rb);
+
+
+#ifdef LOG_CREATIONAL_STUFF
+		debug_con << "Adding bot with ID " << ttos(rb->ID()) << "";
+#endif
+	}
+}
+
 //-------------------------- ActivePlayer --------------------------------------
 //
 //  Player take control of a bot

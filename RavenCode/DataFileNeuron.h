@@ -19,6 +19,7 @@ class DataFileNeuron
 private:
 	// the file we write into
 	std::ofstream myfile;
+	std::ofstream myRNresult;
 	// the instance for the singleton
 	static DataFileNeuron* instance;
 	// class constructor
@@ -31,5 +32,6 @@ public:
 	~DataFileNeuron();
 	// write the vector of value as one line of the file
 	void WriteVectorInFile(std::vector<double> vector);
+	void WriteVectorInFile(std::vector< std::vector<double> > vector);
 };
 

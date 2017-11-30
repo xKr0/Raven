@@ -19,6 +19,8 @@
 #include "goals/Raven_Goal_Types.h"
 #include "goals/Goal_Think.h"
 
+#include "./ReseauNeuron/CNeuralNet.h"
+
 
 #include "Debug/DebugConsole.h"
 
@@ -76,6 +78,9 @@ Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
   //create the targeting system
   m_pTargSys = new Raven_TargetingSystem(this);
 
+  //initialise NeuralNet ptr at NULL
+  m_pNeuronNetwork = NULL;
+
   m_pWeaponSys = new Raven_WeaponSystem(this,
                                         script->GetDouble("Bot_ReactionTime"),
                                         script->GetDouble("Bot_AimAccuracy"),
@@ -107,6 +112,7 @@ Raven_Bot::~Raven_Bot()
   delete m_pVisionUpdateRegulator;
   delete m_pWeaponSys;
   delete m_pSensoryMem;
+  delete m_pNeuronNetwork;
 }
 
 //------------------------------- Spawn ---------------------------------------

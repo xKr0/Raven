@@ -16,10 +16,12 @@
 #include <vector>
 #include <math.h>
 #include <windows.h>
+#include <fstream>
 
 #include "utils.h"
 #include "defines.h"
 #include "CData.h"
+#include "..\DataFileNeuron.h"
 
 
 using namespace std;
@@ -27,6 +29,10 @@ using namespace std;
 //define a type for an input or output vector (used in
 //the training method)
 typedef vector<double> iovector;
+
+
+
+
 
 
 
@@ -48,8 +54,14 @@ struct SNeuron
   //the error value
   double          m_dError;
 
+  // the previous timesteps weight update used
+	  //to add momentum
+	  vector<double>  m_vecPrevUpdate;
+
+  int m_iID;
+
 	//ctor
-	SNeuron(int NumInputs);
+	SNeuron(int NumInputs, int NID);
 };
 
 
@@ -61,12 +73,14 @@ struct SNeuronLayer
 {
 	//the number of neurons in this layer
 	int					      m_iNumNeurons;
+	
+	int m_iLayerID;
 
 	//the layer of neurons
 	vector<SNeuron>		m_vecNeurons;
 
 	SNeuronLayer(int NumNeurons, 
-				       int NumInputsPerNeuron);
+				       int NumInputsPerNeuron, int IDofLayer);
 };
 
 
@@ -96,11 +110,17 @@ private:
   //true if the network has been trained
   bool        m_bTrained;
 
+  //set TRUE if softmax output is required
+  bool        m_bSoftMax;
+
   //epoch counter
   int         m_iNumEpochs;
 
 	//storage for each layer of neurons including the output layer
 	vector<SNeuronLayer>	m_vecLayers;
+
+	//Holds the last registered weights
+	vector< vector<double> > WeightsSaveTab;
 
   //given a training set this method performs one iteration of the
   //backpropagation algorithm. The training sets comprise of series
@@ -124,7 +144,8 @@ public:
   CNeuralNet::CNeuralNet(int    NumInputs,
                          int    NumOutputs,
                          int    HiddenNeurons,
-                         double LearningRate);
+                         double LearningRate,
+						 bool   softmax = false);
 
 
 	//calculates the outputs from a set of inputs
@@ -132,7 +153,7 @@ public:
 
   //trains the network given a training set. Returns false if
   //there is an error with the data sets
-  bool            Train(CData* data, HWND hwnd);
+  bool            Train(CData* data/*, HWND hwnd*/);
 
   //accessor methods
   bool            Trained()const{return m_bTrained;}

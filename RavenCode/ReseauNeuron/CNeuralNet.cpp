@@ -1,6 +1,7 @@
 #include "CNeuralNet.h"
+#include "../DataFileNeuron.h"
 //#define DISPLAY_TO_CONSOLE "ON"
-#define DISPLAY_DESIRED_VS_OBTAINED  "ON"
+//#define DISPLAY_DESIRED_VS_OBTAINED  "ON"
 
 
 //*************************** methods for Neuron **********************
@@ -53,18 +54,23 @@ SNeuronLayer::SNeuronLayer(int NumNeurons,
 CNeuralNet::CNeuralNet(int NumInputs,
                        int NumOutputs,
                        int HiddenNeurons,
-                       double LearningRate):m_iNumInputs(NumInputs),
+                       double LearningRate,
+					   bool softmax		  ):m_iNumInputs(NumInputs),
                                             m_iNumOutputs(NumOutputs),
-                                            m_iNumHiddenLayers(1),
+                                            m_iNumHiddenLayers(NUM_HIDDEN_LAYERS),
+											m_bSoftMax(softmax),
                                             m_iNeuronsPerHiddenLyr(HiddenNeurons),
                                             m_dLearningRate(LearningRate),
                                             m_dErrorSum(9999),
                                             m_bTrained(false),
                                             m_iNumEpochs(0)
 {
-
 	CreateNet();
+	InitializeNetwork();
+	//cout << "Initialized networked" << endl;
+	//cout << "m_dErrorSum | ERROR_THRESHOLD" << endl;
 }
+
 
 //------------------------------createNet()------------------------------
 //
@@ -107,6 +113,13 @@ void CNeuralNet::CreateNet()
 //------------------------------------------------------------------------
 void CNeuralNet::InitializeNetwork()
 {
+	ifstream RecordedWeightsIn;
+	RecordedWeightsIn.open("RNweightsIn.txt");
+	if (RecordedWeightsIn.fail())
+		cout << "Failed to open RNweightsIn.txt for reading, weights will be randomnized" << endl;
+
+	double SavedWeights;
+
 	//for each layer
 	for (int i=0; i<m_iNumHiddenLayers + 1; ++i)
 	{
@@ -116,13 +129,21 @@ void CNeuralNet::InitializeNetwork()
 			//for each weight
 			for (int k=0; k<m_vecLayers[i].m_vecNeurons[n].m_iNumInputs; ++k)
 			{
-				m_vecLayers[i].m_vecNeurons[n].m_vecWeight[k] = RandomClamped();
+				if (!RecordedWeightsIn.fail())
+				{
+					RecordedWeightsIn >> SavedWeights;
+					m_vecLayers[i].m_vecNeurons[n].m_vecWeight[k] = SavedWeights;
+				}
+				else
+					m_vecLayers[i].m_vecNeurons[n].m_vecWeight[k] = RandomClamped();
 			}
 		}
 	}
+	if (!RecordedWeightsIn.fail())
+		RecordedWeightsIn.close();
 
-  m_dErrorSum  = 9999;
-  m_iNumEpochs = 0;
+	m_dErrorSum  = 9999;
+	m_iNumEpochs = 0;
 
 	return;
 }
@@ -134,6 +155,12 @@ void CNeuralNet::InitializeNetwork()
 //------------------------------------------------------------------------
 vector<double> CNeuralNet::Update(vector<double> inputs)
 {
+	//Added Jitter
+	for (int k = 0; k<inputs.size(); ++k)
+	{
+		inputs[k] += RandFloat() * MAX_NOISE_TO_ADD;
+	}
+
 	//stores the resultant outputs from each layer
 	vector<double> outputs;
 
@@ -183,10 +210,19 @@ vector<double> CNeuralNet::Update(vector<double> inputs)
 				<< m_vecLayers[i].m_vecNeurons[n].m_iID << ": " << netinput << endl;
 #endif // DISPLAY_TO_CONSOLE
 
-      //The combined activation is first filtered through the sigmoid 
-      //function and a record is kept for each neuron 
-      m_vecLayers[i].m_vecNeurons[n].m_dActivation = 
-        Sigmoid(netinput, ACTIVATION_RESPONSE);
+			//softmax on output layers
+			if (m_bSoftMax && (i == m_iNumHiddenLayers))
+			{
+				m_vecLayers[i].m_vecNeurons[n].m_dActivation = exp(netinput);
+
+			}
+			else
+			{
+				//The combined activation is first filtered through the sigmoid 
+				//function and a record is kept for each neuron 
+				m_vecLayers[i].m_vecNeurons[n].m_dActivation =
+					Sigmoid(netinput, ACTIVATION_RESPONSE);
+			}
 
 #ifdef DISPLAY_TO_CONSOLE
 			cout << "Layer " << m_vecLayers[i].m_iLayerID << " activation (output) at neuron #" 
@@ -197,6 +233,25 @@ vector<double> CNeuralNet::Update(vector<double> inputs)
 		 outputs.push_back(m_vecLayers[i].m_vecNeurons[n].m_dActivation);
 
 			cWeight = 0;
+		}
+	}
+
+	if (m_bSoftMax)
+	{
+		double expTot = 0;
+
+		//first calculate the exp for the sum of the outputs
+		for (int o = 0; o<outputs.size(); ++o)
+		{
+			expTot += outputs[o];
+		}
+
+		//now adjust each output accordingly
+		for (int o = 0; o<outputs.size(); ++o)
+		{
+			outputs[o] = outputs[o] / expTot;
+
+			m_vecLayers[m_iNumHiddenLayers].m_vecNeurons[o].m_dActivation = outputs[o];
 		}
 	}
 
@@ -245,7 +300,7 @@ bool CNeuralNet::NetworkTrainingEpoch(vector<iovector> &SetIn,
     {
       //first calculate the error value
 #ifdef DISPLAY_DESIRED_VS_OBTAINED
-		if ((vec % 1000 == 0) || (vec >= SetIn.size() - 1))
+		if (/*(vec % 10000 == 0) || */(vec >= SetIn.size() - 3))
 			cout << "Desired output: " << SetOut[vec][op] << " | " << "Neural Net output: " << outputs[op] << endl;
 #endif
 
@@ -253,51 +308,51 @@ bool CNeuralNet::NetworkTrainingEpoch(vector<iovector> &SetIn,
                    * (1 - outputs[op]);    
 
 #ifdef DISPLAY_DESIRED_VS_OBTAINED
-	  if ((vec % 1000 == 0) || (vec >= SetIn.size() - 1))
+	  if (/*(vec % 10000 == 0) || */(vec >= SetIn.size() - 3))
 		 cout << "Calculated error = " << err << endl;
 #endif
 
       //keep a record of the error value
-      m_vecLayers[1].m_vecNeurons[op].m_dError = err;
+      m_vecLayers[OUTPUT_LAYER].m_vecNeurons[op].m_dError = err;
 
+	  /*softmax*
       //update the SSE. (when this value becomes lower than a
       //preset threshold we know the training is successful)
       m_dErrorSum += (SetOut[vec][op] - outputs[op]) *
                      (SetOut[vec][op] - outputs[op]); 
+	  /**/
 
-#ifdef DISPLAY_TO_CONSOLE
-	  cout << "Error sum = " << m_dErrorSum << endl;
-#endif
 
-      curWeight = m_vecLayers[1].m_vecNeurons[op].m_vecWeight.begin();
-	  
+
+      curWeight = m_vecLayers[OUTPUT_LAYER].m_vecNeurons[op].m_vecWeight.begin();
       curNrnHid = m_vecLayers[0].m_vecNeurons.begin();
 
 	  int w = 0;
 
       //for each weight up to but not including the bias
-      while(curWeight != m_vecLayers[1].m_vecNeurons[op].m_vecWeight.end()-1)
+      while(curWeight != m_vecLayers[OUTPUT_LAYER].m_vecNeurons[op].m_vecWeight.end()-1)
       {
+		  //calculate weight update
 		  WeightUpdate = err * m_dLearningRate * curNrnHid->m_dActivation; //weight
 
 #ifdef DISPLAY_TO_CONSOLE
-		  cout << "Layer " << m_vecLayers[1].m_iLayerID << " neuron #" << m_vecLayers[1].m_vecNeurons[op].m_iID
+		  cout << "Layer " << m_vecLayers[OUTPUT_LAYER].m_iLayerID << " neuron #" << m_vecLayers[OUTPUT_LAYER].m_vecNeurons[op].m_iID
 			  << " weight #" << w << " " << *curWeight;
 #endif
 
         //calculate the new weight based on the backprop rules
        // *curWeight += err * m_dLearningRate * curNrnHid->m_dActivation;
-		  *curWeight += WeightUpdate + m_vecLayers[1].m_vecNeurons[op].m_vecPrevUpdate[w] * MOMENTUM; // weight
+		  *curWeight += WeightUpdate + m_vecLayers[OUTPUT_LAYER].m_vecNeurons[op].m_vecPrevUpdate[w] * MOMENTUM; // weight
 
 #ifdef DISPLAY_TO_CONSOLE
-		  if (WeightUpdate != m_vecLayers[1].m_vecNeurons[op].m_vecPrevUpdate[w])
+		  if (WeightUpdate != m_vecLayers[OUTPUT_LAYER].m_vecNeurons[op].m_vecPrevUpdate[w])
 			  cout << " adjusted to " << *curWeight << endl;
 		  else
 			  cout << " unchanged" << endl;
 #endif
 
 	   //keep a record of this weight update
-		  m_vecLayers[1].m_vecNeurons[op].m_vecPrevUpdate[w] = WeightUpdate;
+		  m_vecLayers[OUTPUT_LAYER].m_vecNeurons[op].m_vecPrevUpdate[w] = WeightUpdate;
 		  ++w;
 
 		
@@ -311,22 +366,53 @@ bool CNeuralNet::NetworkTrainingEpoch(vector<iovector> &SetIn,
 	  WeightUpdate = err * m_dLearningRate * BIAS;
 
 #ifdef DISPLAY_TO_CONSOLE
-	  cout << "Layer " << m_vecLayers[1].m_iLayerID << " neuron #" << m_vecLayers[1].m_vecNeurons[op].m_iID
+	  cout << "Layer " << m_vecLayers[OUTPUT_LAYER].m_iLayerID << " neuron #" << m_vecLayers[OUTPUT_LAYER].m_vecNeurons[op].m_iID
 		  << " Bias weight of " << *curWeight;
 #endif
 
-	  *curWeight += WeightUpdate + m_vecLayers[1].m_vecNeurons[op].m_vecPrevUpdate[w] * MOMENTUM;
+	  *curWeight += WeightUpdate + m_vecLayers[OUTPUT_LAYER].m_vecNeurons[op].m_vecPrevUpdate[w] * MOMENTUM;
 
 #ifdef DISPLAY_TO_CONSOLE
-	  if (WeightUpdate != m_vecLayers[1].m_vecNeurons[op].m_vecPrevUpdate[w])
+	  if (WeightUpdate != m_vecLayers[OUTPUT_LAYER].m_vecNeurons[op].m_vecPrevUpdate[w])
 		  cout << " adjusted to " << *curWeight << endl;
 	  else
 		  cout << " unchanged" << endl;
 #endif
 	  //keep a record of this weight update
-	  m_vecLayers[1].m_vecNeurons[op].m_vecPrevUpdate[w] = WeightUpdate;
+	  m_vecLayers[OUTPUT_LAYER].m_vecNeurons[op].m_vecPrevUpdate[w] = WeightUpdate;
 	  //weight
     }
+
+	//update the error total. (when this value becomes lower than a
+	//preset threshold we know the training is successful)
+	double error = 0;
+
+	if (!m_bSoftMax) //Use SSE
+	{
+		for (int o = 0; o<m_iNumOutputs; ++o)
+		{
+
+			error += (SetOut[vec][o] - outputs[o]) *
+				(SetOut[vec][o] - outputs[o]);
+		}
+	}
+
+	else  //use cross-entropy error
+	{
+		for (int o = 0; o<m_iNumOutputs; ++o)
+		{
+			error += SetOut[vec][o] * log(outputs[o]);
+		}
+
+		error = -error;
+	}
+
+	m_dErrorSum += error;
+
+#ifdef DISPLAY_TO_CONSOLE
+	cout << "Error sum = " << m_dErrorSum << endl;
+#endif
+
 
    //**moving backwards to the hidden layer**
     curNrnHid = m_vecLayers[0].m_vecNeurons.begin();
@@ -339,12 +425,12 @@ bool CNeuralNet::NetworkTrainingEpoch(vector<iovector> &SetIn,
     {
       double err = 0;
 
-      curNrnOut = m_vecLayers[1].m_vecNeurons.begin();
+      curNrnOut = m_vecLayers[OUTPUT_LAYER].m_vecNeurons.begin();
 
       //to calculate the error for this neuron we need to iterate through
       //all the neurons in the output layer it is connected to and sum
       //the error * weights
-      while(curNrnOut != m_vecLayers[1].m_vecNeurons.end())
+      while(curNrnOut != m_vecLayers[OUTPUT_LAYER].m_vecNeurons.end())
       {
         err += curNrnOut->m_dError * curNrnOut->m_vecWeight[n];
 
@@ -408,6 +494,8 @@ bool CNeuralNet::NetworkTrainingEpoch(vector<iovector> &SetIn,
       ++curNrnHid;
       ++n;
     }
+
+	
 	/**
 	ofstream DataOutFile;
 	string InputFile = "result.txt";
@@ -426,6 +514,23 @@ bool CNeuralNet::NetworkTrainingEpoch(vector<iovector> &SetIn,
 	///////////////////////**/
 
   }//next input vector
+  if (m_iNumEpochs % 100 == 0)
+  {
+	  WeightsSaveTab.clear();
+
+	  //Save prievous weights of each neurons of each layers
+	  for (int i = 0; i < m_iNumHiddenLayers + 1; i++)
+	  {
+		  curNrnHid = m_vecLayers[i].m_vecNeurons.begin();
+		  while (curNrnHid != m_vecLayers[i].m_vecNeurons.end())
+		  {
+			  WeightsSaveTab.push_back(curNrnHid->m_vecWeight);
+			  curNrnHid++;
+		  }
+	  }
+	  DataFileNeuron::Get()->WriteVectorInFile(WeightsSaveTab);
+ }
+  
   return true;
 }
 
@@ -454,9 +559,9 @@ bool CNeuralNet::Train(CData* data/*, HWND hwnd*/)
    }
   
    //initialize all the weights to small random values
-   InitializeNetwork();
-   cout << "Initialized networked" << endl;
-   cout << "m_dErrorSum | ERROR_THRESHOLD" << endl;
+
+   //InitializeNetwork();	//modif pour Raven
+
 
    //train using backprop until the SSE is below the user defined
    //threshold

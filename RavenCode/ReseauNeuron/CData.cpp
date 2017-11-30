@@ -71,12 +71,12 @@ const char* Names[NUM_PATTERNS]=
 //------------------------------------------------------------------------
 void CData::Init()
 {
-	string InputFile = "data.txt";
+	string InputFile = "dataIn.txt";
 	ifstream TrainingData;
 	TrainingData.open(InputFile.c_str());
 	if (TrainingData.fail()) 
 	{
-		cout << "fail to open data.txt" << endl; 
+		cout << "fail to open dataIn.txt" << endl; 
 	}
 	else
 	{

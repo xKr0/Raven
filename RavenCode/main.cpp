@@ -180,6 +180,10 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
 			 break;
 
+		 case 'N':
+			 g_pRaven->AddNeuralBots(1);
+			 break;
+
 
          case VK_UP:
 

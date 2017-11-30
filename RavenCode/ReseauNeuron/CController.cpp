@@ -9,24 +9,23 @@ string CController::m_sPatternName = "";
 //--------------------------------- ctor -------------------------------
 //
 //----------------------------------------------------------------------
-CController::CController(HWND hwnd):m_bDrawing(false),
-                          m_iNumSmoothPoints(NUM_VECTORS+1),
-                          m_hwnd(hwnd),
+CController::CController(/*HWND hwnd*/):
                           m_dHighestOutput(0),
                           m_iBestMatch(-1),
                           m_iMatch(-1),
-                          m_iNumValidPatterns(NUM_PATTERNS),
+                          m_iNumValidPatterns(NUM_OUTPUTS),
                           m_Mode(UNREADY)
                          
 {
   //create the database
-  m_pData = new CData(m_iNumValidPatterns, NUM_VECTORS);
+  m_pData = new CData(m_iNumValidPatterns, NUM_ENTRIES);
 
   //setup the network
-  m_pNet = new CNeuralNet(NUM_VECTORS*2,        //inputs
-                          m_iNumValidPatterns,  //outputs
+  m_pNet = new CNeuralNet(NUM_ENTRIES,        //inputs
+                          m_iNumValidPatterns,  //outputs, NUM_OUPUTS
                           NUM_HIDDEN_NEURONS,   //hidden
-                          LEARNING_RATE);
+                          LEARNING_RATE,
+						  SOFTMAX);
                           
 }
 
@@ -42,6 +41,7 @@ CController::~CController()
 //
 //  message handler for the dialog box
 //-----------------------------------------------------------------
+/**
 BOOL CALLBACK CController::DialogProc(HWND   hwnd,
                                  UINT   msg,
                                  WPARAM wParam,
@@ -76,7 +76,7 @@ BOOL CALLBACK CController::DialogProc(HWND   hwnd,
           m_sPatternName = buffer;
 
           //if the user hasn't entered a name set name
-          if (m_sPatternName.size == 0)
+          if (m_sPatternName.size() == 0)
           {
             m_sPatternName = "User defined pattern";
           }
@@ -96,6 +96,7 @@ BOOL CALLBACK CController::DialogProc(HWND   hwnd,
 
   return false;
 }
+/**/
 
 //--------------------------- Clear --------------------------------------
 //
@@ -121,6 +122,7 @@ void CController::Clear()
 //  window of the main app instance. The dialog box is used to grab the
 //  name of any user defined gesture
 //------------------------------------------------------------------------
+/**
 bool CController::Drawing(bool val, HINSTANCE hInstance)
 {
   if (val == true)
@@ -166,13 +168,14 @@ bool CController::Drawing(bool val, HINSTANCE hInstance)
            ++m_iNumValidPatterns;
 
            //create a new network
-           m_pNet = new CNeuralNet(NUM_VECTORS*2,
+           m_pNet = new CNeuralNet(NUM_ENTRIES,
                                    m_iNumValidPatterns,
-                                   NUM_VECTORS*2,
+                                   NUM_ENTRIES,
                                    LEARNING_RATE);
 
            //train the network
            TrainNetwork();
+		   cout << "start training" << endl;
 
            m_Mode = ACTIVE;
          }
@@ -190,6 +193,7 @@ bool CController::Drawing(bool val, HINSTANCE hInstance)
 
   return true;
 }
+/**/
 
 //------------------------------ TrainNetwork -----------------------------
 //
@@ -199,7 +203,7 @@ bool CController::TrainNetwork()
 {  
   m_Mode = TRAINING;
 
-  if(!m_pNet->Train(m_pData, m_hwnd))
+  if(!m_pNet->Train(m_pData/*, m_hwnd*/))
   {
     return false;
   }
@@ -215,6 +219,7 @@ bool CController::TrainNetwork()
 //  checks the mouse pattern to see if it matches one of the learned
 //  patterns
 //-------------------------------------------------------------------------
+/**
 bool CController::TestForMatch()
 {
   //input the smoothed mouse vectors into the net and see if we get a match
@@ -246,13 +251,29 @@ bool CController::TestForMatch()
       //have a match! ...so make a note of it.
       if (m_dHighestOutput > MATCH_TOLERANCE)
       {
-        m_iMatch = m_iBestMatch;
-                  
+        m_iMatch = m_iBestMatch;                  
       }
     }
   }
 
   return true;
+}
+/**/
+
+//--------------------------------- LearningMode -------------------------
+//
+//  clears the screen and puts the app into learning mode, ready to accept
+//  a user defined gesture
+//------------------------------------------------------------------------
+void CController::LearningMode()
+{
+  m_Mode = LEARNING;
+
+  Clear();
+
+  //update window
+  InvalidateRect(m_hwnd, NULL, TRUE);
+  UpdateWindow(m_hwnd);
 }
 
 //----------------------------------- CreateVectors ----------------------
@@ -260,6 +281,7 @@ bool CController::TestForMatch()
 //  this function creates normalized vectors out of the series of POINTS
 //  in m_vecSmoothPoints
 //------------------------------------------------------------------------
+/**
 void CController::CreateVectors()
 { 
   for (int p=1; p<m_vecSmoothPath.size(); ++p)
@@ -276,12 +298,14 @@ void CController::CreateVectors()
     m_vecVectors.push_back(v2.x);
     m_vecVectors.push_back(v2.y);
   }
-
 }
+/**/
 
 //------------------------------------- Smooth ---------------------------
 //
+//  Smooths the mouse data as described in chapter 9
 //------------------------------------------------------------------------
+/**
 bool CController::Smooth()
 {
   //make sure it contains enough points for us to work with
@@ -339,26 +363,13 @@ bool CController::Smooth()
 
   return true;
 }
+/**/
 
-//--------------------------------- LearningMode -------------------------
-//
-//  clears the screen and puts the app into learning mode, ready to accept
-//  a user defined gesture
-//------------------------------------------------------------------------
-void CController::LearningMode()
-{
-  m_Mode = LEARNING;
-
-  Clear();
-
-  //update window
-  InvalidateRect(m_hwnd, NULL, TRUE);
-  UpdateWindow(m_hwnd);
-}
 			
 //-------------------------------- Render --------------------------------
 //
 //------------------------------------------------------------------------
+/**
 void CController::Render(HDC &surface, int cxClient, int cyClient)
 {
     
@@ -457,3 +468,4 @@ void CController::Render(HDC &surface, int cxClient, int cyClient)
     }
   }	 
 }
+/**/
