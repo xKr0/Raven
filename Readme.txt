@@ -21,7 +21,9 @@ les conditions sont satisfaisantes. Nous avons aussi géré le faite que la cache 
 #Ajout d'une nouvelle arme (Knife - arme corps à corps):
 Fonctionnalité assez complexe à mettre en place, car fait appel à des fonctionnalités dans tous le projet. De la création de l'arme sur la map à l'utilisation par un bot en passant par les buts.
 
-#Ajout d'un nouveau spawn d'arme à la position x=190 y=340 (Noeud index=121).
+#Ajout d'un nouveau spawn d'arme pour le Knife à la position x=190 y=340 (Noeud index=121).
+
+#La modification de la visée en ajoutant un comportement flou a été fait en prenant compte les paramètres suivants : La distance avec la cible, le temps écoulé depuis que la cible est en vue et la direction par rapport à la cible. Prendre en compte la vitesse du bot est inutile car il se déplace toujours à la même vitesse (0.999999).
 
 #Bonus sur la Qualité du code
 Nous avons tenu à respecter la logique d'implémentation présentée, mais aussi à commenter le code ajouté.
