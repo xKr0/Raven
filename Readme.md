@@ -1,8 +1,8 @@
 # 8IAR125 - Rendu Projet Final Raven
 
 ### Groupe de travail :
-CORFA Sébastien 	- CORS22119501
-CROS Camille 		- CROC02529501
+CORFA Sébastien CORS22119501 
+-- CROS Camille 		- CROC02529501
 DECHAUX Quentin 	- DECQ24049507
 COX Alexandre		- COXA03069302
 
