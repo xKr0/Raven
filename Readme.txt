@@ -1,25 +1,25 @@
 8IAR125 - Rendu Projet Final Raven
 
 Groupe de travail :
-CORFA Sébastien 	- CORS22119501
+CORFA SÃ©bastien 	- CORS22119501
 CROS Camille 		- CROC02529501
 DECHAUX Quentin 	- DECQ24049507
 COX Alexandre		- COXA03069302
 
-#Ajout d'une nouvelle arme (Knife - arme corps à corps):
-Fonctionnalité assez complexe à mettre en place, car fait appel à des fonctionnalités dans tous le projet. De la création de l'arme sur la map à l'utilisation par un bot en passant par les buts.
-#Ajout d'un nouveau spawn d'arme pour le Knife à la position x=190 y=340 (Noeud index=121)
+#Ajout d'une nouvelle arme (Knife - arme corps Ã  corps):
+FonctionnalitÃ© assez complexe Ã  mettre en place, car fait appel Ã  des fonctionnalitÃ©s dans tout le projet. De la crÃ©ation de l'arme sur la map Ã  l'utilisation par un bot en passant par les buts.
 
-#Ajout d'un nouveau but atomique, Goal_DodgeOnce, qui est une manœuvre d'esquive dans une 
-direction aléatoire. Lors d'un déplacement vers un item, le bot vérifie, avant chaque déplacement vers un nouveau nœud, si un ennemi est visible et ajoute un Goal_DodgeOnce.
+#Ajout d'un nouveau spawn d'arme pour le Knife Ã  la position x=190 y=340 (Noeud index=121)
 
-#Ajout d'un réseau de neurone, tiré du livre AI Techniques For Game Programming de Mat Buckland. Contient 1 couche caché de 6 neurones et un neurone d'output.
-->Entrainement du réseau: Le réseau est entrainé avec un exécutable à l'exterieur de Raven. L'exécutable récupère des donnés de jeu et la réponse conséquente (tirer ou ne pas tirer) à partir dun fichier dataIn.txt et les envoie au réseau. Le réseau produit une réponse à partir des donnés de jeu, la compare à la réponse attendu (1 ou 0) et ajuste ses poids en conséquences. Les poids sont régulièrement sauvegardé dans un fichier RNweights.txt.
-->Utilisation du réseau dans Raven: On peut créer un bot intéligent, à laquel on fournit une instance d'un réseau préentrainé (touche 'N' au clavier). Lorsqu'un bot est confronté à un ennemeis, les donnés de jeu sont envoyé au réseau, puis la réponse est récupéré et détermine si le bot tire ou non.
+#Ajout d'un nouveau but atomique, Goal_DodgeOnce, qui est une manÅ“uvre d'esquive dans une 
+direction alÃ©atoire. Lors d'un dÃ©placement vers un item, le bot vÃ©rifie, avant chaque dÃ©placement vers un nouveau nÅ“ud, si un ennemi est visible et ajoute un Goal_DodgeOnce.
 
+#Ajout d'un rÃ©seau de neurone, tirÃ© du livre AI Techniques For Game Programming de Mat Buckland. Contient 1 couche cachÃ©e de 6 neurones et un neurone d'output.
+-> Entrainement du rÃ©seau: Le rÃ©seau est entrainÃ© avec un exÃ©cutable Ã  l'exterieur de Raven. L'exÃ©cutable rÃ©cupÃ¨re des donnÃ©es de jeu et la rÃ©ponse consÃ©quente (tirer ou ne pas tirer) Ã  partir d'un fichier dataIn.txt et les envoie au rÃ©seau. Le rÃ©seau produit une rÃ©ponse Ã  partir des donnÃ©es de jeu, la compare Ã  la rÃ©ponse attendu (1 ou 0) et ajuste ses poids en consÃ©quence. Les poids sont rÃ©guliÃ¨rement sauvegardÃ©s dans un fichier RNweights.txt.
+-> Utilisation du rÃ©seau dans Raven: On peut crÃ©er un bot intelligent, auquel on fournit une instance d'un rÃ©seau prÃ©-entrainÃ© (touche 'N' au clavier). Lorsqu'un bot est confrontÃ© Ã  un ennemei, les donnÃ©es de jeu sont envoyÃ©es au rÃ©seau, puis la rÃ©ponse est rÃ©cupÃ©rÃ©e et dÃ©termine si le bot tire ou non.
 
-#La modification de la visée en ajoutant un comportement flou a été fait en prenant compte les paramètres suivants : La distance avec la cible, le temps écoulé depuis que la cible est en vue et la direction par rapport à la cible. Prendre en compte la vitesse du bot est inutile car il se déplace toujours à la même vitesse (0.999999).
+#La modification de la visÃ©e en ajoutant un comportement flou a Ã©tÃ© fait en prenant compte les paramÃ¨tres suivants : La distance avec la cible, le temps Ã©coulÃ© depuis que la cible est en vue et la direction par rapport Ã  la cible. Prendre en compte la vitesse du bot est inutile car il se dÃ©place toujours Ã  la mÃªme vitesse (0.999999).
 
-#Bonus sur la Qualité du code
-Nous avons tenu à respecter la logique d'implémentation présentée, mais aussi à commenter le code ajouté.
+#Bonus sur la QualitÃ© du code
+Nous avons tenu Ã  respecter la logique d'implÃ©mentation prÃ©sentÃ©e, mais aussi Ã  commenter le code ajoutÃ© quand cela Ã©tait nÃ©cessaire.
 
