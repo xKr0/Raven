@@ -6,7 +6,7 @@ CROS Camille 		- CROC02529501
 DECHAUX Quentin 	- DECQ24049507
 COX Alexandre		- COXA03069302
 
-## Ajout d'une nouvelle arme (Knife - arme corps à corps):
+## Ajout d'une nouvelle arme (Knife - arme corps à corps)
 Fonctionnalité assez complexe à mettre en place, car fait appel à des fonctionnalités dans tout le projet. De la création de l'arme sur la map à l'utilisation par un bot en passant par les buts.
 
 ## Ajout d'un nouveau spawn d'arme
@@ -29,11 +29,12 @@ Nous avons rajouté deux points sur la map dans la couleur respective de chaque 
 des bots sont déposées lorsque ces derniers meurent. En outre, nous avons aussi rajouté un but composite (Goal_GoToCache) permettant aux bots de l'équipe de se diriger vers leur cache d'arme si jamais
 les conditions sont satisfaisantes (grâce à un goal evaluator spécifique, GoToCacheGoal_Evaluator). Nous avons aussi géré le fait que la cache d'arme de l'équipe peut être vidée par un autre membre pendant qu’un bot si rende.
 
-## Ajout d'un réseau de neurone, tiré du livre AI Techniques For Game Programming de Mat Buckland. 
-#### Contient 1 couche cachée de 6 neurones et un neurone d'output.
-### Entrainement du réseau: 
+## Ajout d'un réseau de neurone 
+Réseau de neurone, tiré du livre AI Techniques For Game Programming de Mat Buckland.Contient 1 couche cachée de 6 neurones et un neurone d'output.
+
+#### Entrainement du réseau: 
 Le réseau est entrainé avec un exécutable à l'exterieur de Raven. L'exécutable récupère des données de jeu et la réponse conséquente (tirer ou ne pas tirer) à partir d'un fichier dataIn.txt et les envoie au réseau. Le réseau produit une réponse à partir des données de jeu, la compare à la réponse attendu (1 ou 0) et ajuste ses poids en conséquence. Les poids sont régulièrement sauvegardés dans un fichier RNweights.txt.
-### Utilisation du réseau dans Raven: 
+#### Utilisation du réseau dans Raven: 
 On peut créer un bot intelligent, auquel on fournit une instance d'un réseau pré-entrainé (touche 'N' au clavier). Lorsqu'un bot est confronté à un ennemei, les données de jeu sont envoyées au réseau, puis la réponse est récupérée et détermine si le bot tire ou non.
 
 ## La modification de la visée 
