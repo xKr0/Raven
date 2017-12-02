@@ -196,6 +196,16 @@ Vector2D Raven_Steering::CalculatePrioritized()
     if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
   }
 
+  if (On(offset_pursuit))
+  {
+	  //assert(m_pTargetAgent1 && "pursuit target not assigned");
+	  //assert(!m_vOffset.isZero() && "No offset assigned");
+
+	  force = OffsetPursuit(m_pTargetAgent1, m_vOffset);
+
+	  if (!AccumulateForce(m_vSteeringForce, force)) return m_vSteeringForce;
+  }
+
 
   return m_vSteeringForce;
 }
@@ -287,6 +297,30 @@ Vector2D Raven_Steering::Wander()
   return Target - m_pRaven_Bot->Pos(); 
 }
 
+
+//--------------------------- OffSetPursuit ----------------------------
+//
+//------------------------------------------------------------------------
+
+Vector2D Raven_Steering::OffsetPursuit(const Raven_Bot*  leader, const Vector2D offset)
+{
+	//calculate the offset's position in world space
+	Vector2D WorldOffsetPos = PointToWorldSpace(offset,
+		leader->Heading(),
+		leader->Side(),
+		leader->Pos());
+
+	Vector2D ToOffset = WorldOffsetPos - m_pRaven_Bot->Pos();
+
+	//the lookahead time is propotional to the distance between the leader
+	//and the pursuer; and is inversely proportional to the sum of both
+	//agent's velocities
+	double LookAheadTime = ToOffset.Length() /
+		(m_pRaven_Bot->MaxSpeed() + leader->Speed());
+
+	//now Arrive at the predicted future position of the offset
+	return Arrive(WorldOffsetPos + leader->Velocity() * LookAheadTime, fast);
+}
 
 //--------------------------- WallAvoidance --------------------------------
 //

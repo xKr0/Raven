@@ -39,6 +39,10 @@ public:
 	// score of red team
 	static int scoreRed;
 
+	static int leaderBlue;
+
+	static int leaderRed;
+
 	// position of spot for blue bullet spawn
 	static Vector2D spotBlue;
 

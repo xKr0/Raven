@@ -304,6 +304,12 @@
     <ClCompile Include="ReseauNeuron\utils.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="goals\Goal_FollowLeader.cpp">
+      <Filter>AI\goals\composite</Filter>
+    </ClCompile>
+    <ClCompile Include="goals\FollowLeader_Evaluator.cpp">
+      <Filter>AI\goals\goal evaluation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -672,6 +678,12 @@
     <ClInclude Include="ReseauNeuron\defines.h" />
     <ClInclude Include="ReseauNeuron\utils.h" />
     <ClInclude Include="ReseauNeuron\resource.h" />
+    <ClInclude Include="goals\Goal_FollowLeader.h">
+      <Filter>AI\goals\composite</Filter>
+    </ClInclude>
+    <ClInclude Include="goals\FollowLeader_Evaluator.h">
+      <Filter>AI\goals\goal evaluation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua">

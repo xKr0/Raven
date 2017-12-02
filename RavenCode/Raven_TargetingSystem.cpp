@@ -39,6 +39,10 @@ void Raven_TargetingSystem::Update()
         m_pCurrentTarget = *curBot;
       }
     }
+	if (m_pOwner->getTag() == (*curBot)->getTag() && (*curBot)->isLeader())
+	{
+		m_pOwner->SetLeader(*curBot);
+	}
   }
 }
 

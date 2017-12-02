@@ -70,6 +70,12 @@ private:
   //shooting them
   Raven_WeaponSystem*                m_pWeaponSys;
 
+  // If the bot is the leader
+  bool								 m_leader;
+
+  // pointer on the team's leader
+  Raven_Bot*						m_botLeader;
+
   //A regulator object limits the update frequency of a specific AI component
   Regulator*                         m_pWeaponSelectionRegulator;
   Regulator*                         m_pGoalArbitrationRegulator;
@@ -145,6 +151,8 @@ public:
   //position. Returns false if not facing at the target.
   bool          RotateFacingTowardPosition(Vector2D target);
  
+  Raven_Bot* GetLeader() { return m_botLeader; }
+  void SetLeader(Raven_Bot* leader) { m_botLeader = leader; }
   //methods for accessing attribute data
   int           Health()const{return m_iHealth;}
   int           MaxHealth()const{return m_iMaxHealth;}
@@ -223,6 +231,10 @@ public:
   bool          canStepRight(Vector2D& PositionOfStep)const;
   bool          canStepForward(Vector2D& PositionOfStep)const;
   bool          canStepBackward(Vector2D& PositionOfStep)const;
+
+  void		    Lead();
+  bool isLeader();
+
 
   
   Raven_Game* const                  GetWorld(){return m_pWorld;} 

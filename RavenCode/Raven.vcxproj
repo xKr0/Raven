@@ -223,7 +223,9 @@
     <ClCompile Include="armory\Projectile_knife.cpp" />
     <ClCompile Include="armory\Weapon_Knife.cpp" />
     <ClCompile Include="DataFileNeuron.cpp" />
+    <ClCompile Include="goals\FollowLeader_Evaluator.cpp" />
     <ClCompile Include="goals\Goal_DodgeOnce.cpp" />
+    <ClCompile Include="goals\Goal_FollowLeader.cpp" />
     <ClCompile Include="goals\Goal_GoToCache.cpp" />
     <ClCompile Include="goals\GoToCacheGoal_Evaluator.cpp" />
     <ClCompile Include="main.cpp">
@@ -552,7 +554,9 @@
     <ClInclude Include="armory\Projectile_knife.h" />
     <ClInclude Include="armory\Weapon_Knife.h" />
     <ClInclude Include="DataFileNeuron.h" />
+    <ClInclude Include="goals\FollowLeader_Evaluator.h" />
     <ClInclude Include="goals\Goal_DodgeOnce.h" />
+    <ClInclude Include="goals\Goal_FollowLeader.h" />
     <ClInclude Include="goals\Goal_GetItem.h" />
     <ClInclude Include="goals\Goal_GoToCache.h" />
     <ClInclude Include="goals\GoToCacheGoal_Evaluator.h" />

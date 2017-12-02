@@ -52,7 +52,7 @@ public:
   void AddGoal_Explore();
   void AddGoal_AttackTarget();
   void AddGoal_GoToCache(Vector2D pos, Trigger_TeamWeaponCache* trigger);
-
+  void AddGoal_FollowLeader(Raven_Bot* bot, Raven_Bot* leader);
   //this adds the MoveToPosition goal to the *back* of the subgoal list.
   void QueueGoal_MoveToPosition(Vector2D pos);
 

@@ -33,6 +33,10 @@ Trigger_TeamWeaponCache* Team::teamRed = new Trigger_TeamWeaponCache(Team::spotR
 
 Trigger_TeamWeaponCache* Team::teamBlue = new Trigger_TeamWeaponCache(Team::spotBlue, 10, 80, Team::blue);
 
+int Team::leaderRed = 0;
+
+int Team::leaderBlue = 0;
+
 
 void Team::createTeam(std::list<Raven_Bot*> mBots, Raven_Map* pMap)
 {
@@ -49,11 +53,21 @@ void Team::createTeam(std::list<Raven_Bot*> mBots, Raven_Map* pMap)
 		if (i == 0) {
 			// we change the team value 
 			(*curBot)->setTeam(red);
+			if (leaderRed == 0)
+			{
+				(*curBot)->Lead();
+				leaderRed = 1;
+			}
 			i++;
 		}
 		else if (i == 1) {
 			// we change the team value 
 			(*curBot)->setTeam(blue);
+			if (leaderBlue == 0)
+			{
+				(*curBot)->Lead();
+				leaderBlue = 1;
+			}
 			i--;
 		}
 	}
@@ -85,7 +99,7 @@ void Team::destroyTeam(std::list<Raven_Bot*> mBots, Raven_Map* pMap)
 	else {
 		debug_con << "Red wins ! Red : " << Team::scoreRed << "pts vs Blue : " << Team::scoreBlue << "pts" << "";
 	}
-	
+
 	// reset team counters and scores 
 	nbBlue = 0;
 	nbRed = 0;
@@ -108,3 +122,5 @@ void Team::increasedBlueScore() {
 	Team::scoreBlue += Team::pointsPerKill;
 	debug_con << "Team Blue scores ! Red : " << Team::scoreRed << "pts vs Blue : " << Team::scoreBlue << "pts" << "";
 }
+
+
