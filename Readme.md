@@ -42,6 +42,9 @@ On peut créer un bot intelligent, auquel on fournit une instance d'un réseau p
 ## La modification de la visée 
 La modification de la visée en ajoutant un comportement flou a été fait en prenant compte les paramètres suivants : La distance avec la cible, le temps écoulé depuis que la cible est en vue et la direction par rapport à la cible. Prendre en compte la vitesse du bot est inutile car il se déplace toujours à la même vitesse (0.999999).
 
+## Control d'un bot par un joueur
+L'utilisateur peut appuyer sur 'P' pour posséder un bot. Le deplacement s'effectue avec les touches WASD, la visée avec la souris et le tir avec un clic gauche.
+
 ## Bonus sur la Qualité du code
 Nous avons tenu à respecter la logique d'implémentation présentée, mais aussi à commenter le code ajouté quand cela était nécessaire.
 
