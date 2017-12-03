@@ -24,10 +24,11 @@ void Raven_TargetingSystem::Update()
   SensedBots = m_pOwner->GetSensoryMem()->GetListOfRecentlySensedOpponents();
   
   std::list<Raven_Bot*>::const_iterator curBot = SensedBots.begin();
+  m_pOwner->SetLeader(nullptr);
   for (curBot; curBot != SensedBots.end(); ++curBot)
   {
     //make sure the bot is alive and that it is not the owner
-	  // also make sure the bot is not targeting an ally
+	// also make sure the bot is not targeting an ally
     if ((*curBot)->isAlive() && (*curBot != m_pOwner) && 
 		(m_pOwner->getTag() == Team::none || (*curBot)->getTag() != m_pOwner->getTag()))
     {

@@ -20,13 +20,19 @@ double FollowLeader_Evaluator::CalculateDesirability(Raven_Bot* pBot)
 {
 	double Desirability = 0.0;
 
-	if (!(pBot->getTag() == Team::none) && pBot->GetLeader() != nullptr) {
-		//only do the calculation if there is a cache
-		debug_con <<"OKKKK";
-		Desirability = 0.6;
+	debug_con << "Get LEADER" << pBot->GetLeader();
+
+	if (!(pBot->getTag() == Team::none) && pBot->GetLeader() != nullptr 
+		&& pBot->canWalkTo(pBot->GetLeader()->Pos())
+		&& Vec2DDistance(pBot->Pos(), pBot->GetLeader()->Pos()) > 20) {
+		const double Tweaker = 1.2;
+
+		Desirability = Tweaker *
+			Raven_Feature::Health(pBot);
 
 		//ensure the value is in the range 0 to 1
 		Clamp(Desirability, 0, 1);
+		debug_con << "FOLLOW LEADER" << Desirability;
 	}
 
 	return Desirability;

@@ -308,7 +308,7 @@ Vector2D Raven_Steering::OffsetPursuit(const Raven_Bot*  leader, const Vector2D 
 	Vector2D WorldOffsetPos = PointToWorldSpace(offset,
 		leader->Heading(),
 		leader->Side(),
-		leader->Pos());
+		leader->Pos().operator-=(Vector2D(20, 20)));
 
 	Vector2D ToOffset = WorldOffsetPos - m_pRaven_Bot->Pos();
 

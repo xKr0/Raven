@@ -30,6 +30,7 @@ double AttackTargetGoal_Evaluator::CalculateDesirability(Raven_Bot* pBot)
 
      //bias the value according to the personality of the bot
      Desirability *= m_dCharacterBias;
+	 debug_con << "Attack target" << Desirability;
   }
     
   return Desirability;

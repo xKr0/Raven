@@ -285,7 +285,7 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
 			debug_con << "New player for Team Red : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";
 		}
 		else {
-			rb->setTeam(Team::red);
+			rb->setTeam(Team::blue);
 			debug_con << "New player for Team Blue : " << Team::nbRed << " Red vs " << Team::nbBlue << " Blue" << "";
 		}
 	}
