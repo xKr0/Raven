@@ -21,7 +21,6 @@ double FollowLeader_Evaluator::CalculateDesirability(Raven_Bot* pBot)
 {
 	double Desirability = 0.0;
 
-	debug_con << "Get LEADER" << pBot->GetLeader();
 
 	if (!(pBot->getTag() == Team::none) && pBot->GetLeader() != nullptr 
 		&& pBot->canWalkTo(pBot->GetLeader()->Pos()) && UserOptions->GetFollowLeader()
@@ -33,7 +32,6 @@ double FollowLeader_Evaluator::CalculateDesirability(Raven_Bot* pBot)
 
 		//ensure the value is in the range 0 to 1
 		Clamp(Desirability, 0, 1);
-		debug_con << "FOLLOW LEADER" << Desirability;
 	}
 
 	return Desirability;
