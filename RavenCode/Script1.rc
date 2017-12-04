@@ -33,6 +33,7 @@ BEGIN
         MENUITEM "Remove Bot [ csr down ]",     IDM_GAME_REMOVEBOT
         MENUITEM "Toggle Pause [ 'P' ]",        IDM_GAME_PAUSE
         MENUITEM "Create Team [ 'T' ]",         ID_GAME_CREATE_TEAM
+		MENUITEM "Follow Leader",				ID_GAME_FOLLOW_LEADER
     END
     POPUP "Navigation"
     BEGIN

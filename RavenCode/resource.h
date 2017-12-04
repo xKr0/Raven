@@ -26,6 +26,7 @@
 #define ID_GAME_CREATETEAM              40018
 #define ID_GAME_CREATE_TEAM             40020
 #define IDM_BOTS_SHOW_TEAM              40023
+#define ID_GAME_FOLLOW_LEADER			40024
 
 // Next default values for new objects
 // 

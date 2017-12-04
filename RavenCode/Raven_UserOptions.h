@@ -36,7 +36,7 @@ public:
   bool m_bShowTargetOfSelectedBot;
 
   bool m_bShowOpponentsSensedBySelectedBot;
-
+  bool m_bFollowLeader;
   bool m_bOnlyShowBotsInTargetsFOV;
 
   bool m_bShowGoalsOfSelectedBot;
@@ -56,6 +56,11 @@ public:
 
   // added for team tag
   bool m_bShowTeam;
+
+  bool GetFollowLeader()
+  {
+	  return m_bFollowLeader;
+  }
 };
 
 

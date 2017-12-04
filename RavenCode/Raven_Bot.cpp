@@ -632,6 +632,13 @@ void Raven_Bot::Render()
 		 gdi->TextAtPos(Pos().x - 40, Pos().y - 20, "none");
 	  }  
   }
+
+  if (isLeader() && UserOptions->GetFollowLeader())
+  {
+	  gdi->TextColor(gdi->black);
+	  gdi->TextAtPos(Pos().x - 40, Pos().y - 20, "LEADER");
+
+  }
 }
 
 //------------------------- SetUpVertexBuffer ---------------------------------

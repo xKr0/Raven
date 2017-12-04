@@ -6,6 +6,7 @@
 #include "misc/cgdi.h"
 #include "misc/Stream_Utility_Functions.h"
 #include "Raven_Feature.h"
+#include "../Raven_UserOptions.h"
 
 
 
@@ -23,7 +24,7 @@ double FollowLeader_Evaluator::CalculateDesirability(Raven_Bot* pBot)
 	debug_con << "Get LEADER" << pBot->GetLeader();
 
 	if (!(pBot->getTag() == Team::none) && pBot->GetLeader() != nullptr 
-		&& pBot->canWalkTo(pBot->GetLeader()->Pos())
+		&& pBot->canWalkTo(pBot->GetLeader()->Pos()) && UserOptions->GetFollowLeader()
 		&& Vec2DDistance(pBot->Pos(), pBot->GetLeader()->Pos()) > 20) {
 		const double Tweaker = 1.2;
 

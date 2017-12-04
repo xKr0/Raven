@@ -253,7 +253,12 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
           g_pRaven->AddBots(1);
           
           break;
+	 
+	  case ID_GAME_FOLLOW_LEADER:
 
+		  UserOptions->m_bFollowLeader = !UserOptions->m_bFollowLeader;
+		  CheckMenuItemAppropriately(hwnd, ID_GAME_FOLLOW_LEADER, UserOptions->m_bFollowLeader);
+		  break;
       case IDM_GAME_REMOVEBOT:
           
           g_pRaven->RemoveBot();
